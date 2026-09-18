@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#E8E2DC;font-family:Archivo,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#A14D72;text-decoration:none}
+a:hover{color:#7F3A59}
+*{box-sizing:border-box}
+input,textarea,button,select{font-family:inherit}
+::-webkit-scrollbar{width:0;height:0}
+@keyframes gpulse{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
+@keyframes grise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:26px 16px 40px">
+
+  <div style="width:100%;max-width:820px;display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+    <div style="font:700 17px/1 Archivo,sans-serif;letter-spacing:.16em;color:#221E1C">GABBY</div>
+    <div style="font:500 11px/1 Archivo,sans-serif;letter-spacing:.06em;color:#8A817C;text-transform:uppercase">{{ t.chromeScreen }} · {{ screenLabel }}</div>
+    <div style="flex:1"></div>
+    <button onClick="{{ toggleLang }}" style="display:flex;align-items:center;gap:7px;background:#FFFFFF;border:1px solid rgba(34,30,28,.14);border-radius:999px;padding:7px 13px;font:600 11.5px/1 Archivo,sans-serif;letter-spacing:.04em;color:#221E1C;cursor:pointer" style-hover="border-color:#A14D72;color:#A14D72">
+      <span style="width:6px;height:6px;border-radius:50%;background:#A14D72;display:inline-block"></span>{{ langLabel }}
+    </button>
+    <button onClick="{{ goSplash }}" style="background:transparent;border:1px solid rgba(34,30,28,.14);border-radius:999px;padding:7px 13px;font:600 11.5px/1 Archivo,sans-serif;letter-spacing:.04em;color:#8A817C;cursor:pointer" style-hover="color:#221E1C;border-color:rgba(34,30,28,.3)">{{ t.chromeRestart }}</button>
+  </div>
+
+  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ isDarkFrame }}" hint-size="393px,852px">
+
+    <div style="height:100%;overflow-y:auto;background:#FAF6F3;display:{{ lightDisplay }}">
+
+      <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:56px 26px 30px;background:#FAF6F3">
+          <div style="display:flex;align-items:center;gap:9px">
+            <div style="width:26px;height:26px;border-radius:9px;background:#A14D72;display:flex;align-items:center;justify-content:center;font:700 13px/1 Archivo,sans-serif;color:#fff">G</div>
+            <div style="font:700 15px/1 Archivo,sans-serif;letter-spacing:.2em;color:#221E1C">GABBY</div>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:44px 0 10px">
+            <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A14D72;margin-bottom:16px">{{ t.splashKicker }}</div>
+            <h1 style="margin:0;font:600 40px/1.04 Archivo,sans-serif;letter-spacing:-.025em;color:#221E1C;text-wrap:pretty">{{ t.splashTitle }}</h1>
+            <p style="margin:18px 0 0;font:400 15.5px/1.5 Archivo,sans-serif;color:#6E6660;max-width:290px;text-wrap:pretty">{{ t.splashBody }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:26px">
+              <div style="display:flex;align-items:center;gap:6px;background:#F1EAE4;border-radius:999px;padding:7px 12px;font:500 11.5px/1 Archivo,sans-serif;color:#5C544F">
+                <span style="width:5px;height:5px;border-radius:50%;background:#2F6B52;display:inline-block"></span>{{ t.splashChip1 }}
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;background:#F1EAE4;border-radius:999px;padding:7px 12px;font:500 11.5px/1 Archivo,sans-serif;color:#5C544F">
+                <span style="width:5px;height:5px;border-radius:50%;background:#2F6B52;display:inline-block"></span>{{ t.splashChip2 }}
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button onClick="{{ goClientSignup }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:#A14D72;border:none;border-radius:20px;padding:19px 22px;cursor:pointer;text-align:left" style-hover="background:#8E4364">
+              <span style="display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 16.5px/1.1 Archivo,sans-serif;color:#fff">{{ t.imClient }}</span>
+                <span style="font:400 12.5px/1.2 Archivo,sans-serif;color:rgba(255,255,255,.78)">{{ t.imClientSub }}</span>
+              </span>
+              <span style="font:400 20px/1 Archivo,sans-serif;color:#fff">&#8594;</span>
+            </button>
+            <button onClick="{{ goDriverSignup }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:#221E1C;border:none;border-radius:20px;padding:19px 22px;cursor:pointer;text-align:left" style-hover="background:#100E0D">
+              <span style="display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 16.5px/1.1 Archivo,sans-serif;color:#F2EFEA">{{ t.imDriver }}</span>
+                <span style="font:400 12.5px/1.2 Archivo,sans-serif;color:rgba(242,239,234,.7)">{{ t.imDriverSub }}</span>
+              </span>
+              <span style="font:400 20px/1 Archivo,sans-serif;color:#E8B33D">&#8594;</span>
+            </button>
+            <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:6px">
+              <button onClick="{{ toggleLang }}" style="background:none;border:none;padding:6px;font:600 12px/1 Archivo,sans-serif;color:#8A817C;cursor:pointer;letter-spacing:.04em" style-hover="color:#A14D72">{{ t.switchLang }}</button>
+              <span style="width:1px;height:12px;background:rgba(34,30,28,.15)"></span>
+              <button onClick="{{ goAdmin }}" style="background:none;border:none;padding:6px;font:600 12px/1 Archivo,sans-serif;color:#8A817C;cursor:pointer;letter-spacing:.04em" style-hover="color:#A14D72">{{ t.adminEntry }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isClientSignup }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:50px 24px 28px;background:#FAF6F3">
+          <button onClick="{{ goSplash }}" style="align-self:flex-start;background:none;border:none;padding:0 0 22px;font:500 13px/1 Archivo,sans-serif;color:#8A817C;cursor:pointer">&#8592; {{ t.back }}</button>
+          <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A14D72">{{ t.clientBadge }}</div>
+          <h2 style="margin:12px 0 8px;font:600 28px/1.1 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ t.clientSignupTitle }}</h2>
+          <p style="margin:0 0 24px;font:400 14px/1.5 Archivo,sans-serif;color:#6E6660">{{ t.clientSignupBody }}</p>
+          <label style="display:flex;flex-direction:column;gap:7px;margin-bottom:14px">
+            <span style="font:600 11.5px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A817C">{{ t.fName }}</span>
+            <input value="{{ cName }}" onChange="{{ setCName }}" placeholder="Laura Serrano" style="width:100%;background:#fff;border:1px solid rgba(34,30,28,.12);border-radius:14px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#221E1C;outline:none" style-focus="border-color:#A14D72" />
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px;margin-bottom:18px">
+            <span style="font:600 11.5px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A817C">{{ t.fPhone }}</span>
+            <input value="{{ cPhone }}" onChange="{{ setCPhone }}" placeholder="+34 600 000 000" style="width:100%;background:#fff;border:1px solid rgba(34,30,28,.12);border-radius:14px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#221E1C;outline:none" style-focus="border-color:#A14D72" />
+          </label>
+          <div style="display:flex;gap:11px;background:#F1EAE4;border-radius:16px;padding:15px 16px">
+            <span style="width:7px;height:7px;border-radius:50%;background:#2F6B52;margin-top:5px;flex:none"></span>
+            <p style="margin:0;font:400 12.5px/1.45 Archivo,sans-serif;color:#5C544F;text-wrap:pretty">{{ t.clientPrivacy }}</p>
+          </div>
+          <div style="flex:1;min-height:20px"></div>
+          <button onClick="{{ goBrowse }}" style="width:100%;background:#A14D72;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#fff;cursor:pointer" style-hover="background:#8E4364">{{ t.createAccount }}</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isBrowse }}">
+        <div style="min-height:780px;background:#FAF6F3;padding-bottom:26px">
+          <div style="position:sticky;top:0;z-index:5;background:#FAF6F3;padding:46px 20px 12px;border-bottom:1px solid rgba(34,30,28,.07)">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+              <div>
+                <div style="font:400 13px/1.2 Archivo,sans-serif;color:#8A817C">{{ t.greeting }}</div>
+                <h2 style="margin:4px 0 0;font:600 23px/1.15 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ t.browseTitle }}</h2>
+              </div>
+              <div style="width:38px;height:38px;border-radius:13px;background:#F1EAE4;display:flex;align-items:center;justify-content:center;font:600 13px/1 Archivo,sans-serif;color:#A14D72;flex:none">{{ cInitials }}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:9px;background:#fff;border:1px solid rgba(34,30,28,.1);border-radius:14px;padding:12px 14px;margin-top:16px">
+              <span style="width:13px;height:13px;border:2px solid #A6968C;border-radius:50%;flex:none"></span>
+              <input value="{{ query }}" onChange="{{ setQuery }}" placeholder="{{ t.searchPlaceholder }}" style="flex:1;border:none;background:none;outline:none;font:400 14.5px/1 Archivo,sans-serif;color:#221E1C;min-width:0" />
+            </div>
+            <div style="display:flex;gap:7px;overflow-x:auto;margin-top:12px;padding-bottom:4px">
+              <sc-for list="{{ areaChips }}" as="chip" hint-placeholder-count="5">
+                <button onClick="{{ chip.pick }}" style="flex:none;border-radius:999px;padding:8px 13px;font:500 12px/1 Archivo,sans-serif;cursor:pointer;white-space:nowrap;border:1px solid {{ chip.border }};background:{{ chip.bg }};color:{{ chip.fg }}">{{ chip.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="padding:16px 20px 0">
+            <button onClick="{{ goAnyAvailable }}" style="display:flex;align-items:center;gap:13px;width:100%;background:#221E1C;border:none;border-radius:18px;padding:16px 17px;cursor:pointer;text-align:left;margin-bottom:18px" style-hover="background:#100E0D">
+              <span style="position:relative;width:34px;height:34px;border-radius:12px;background:rgba(232,179,61,.16);display:flex;align-items:center;justify-content:center;flex:none">
+                <span style="width:8px;height:8px;border-radius:50%;background:#E8B33D;animation:gpulse 2s ease-in-out infinite"></span>
+              </span>
+              <span style="flex:1;display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 14.5px/1.1 Archivo,sans-serif;color:#F2EFEA">{{ t.anyAvailable }}</span>
+                <span style="font:400 12px/1.2 Archivo,sans-serif;color:rgba(242,239,234,.66)">{{ availableCountText }}</span>
+              </span>
+              <span style="font:400 17px/1 Archivo,sans-serif;color:#E8B33D">&#8594;</span>
+            </button>
+
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
+              <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A817C">{{ t.verifiedDrivers }}</div>
+              <div style="font:400 11.5px/1 Archivo,sans-serif;color:#A6968C">{{ resultCountText }}</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+              <sc-for list="{{ visibleDrivers }}" as="d" hint-placeholder-count="6">
+                <div onClick="{{ d.open }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:18px;padding:13px;cursor:pointer" style-hover="border-color:rgba(161,77,114,.45)">
+                  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px">
+                    <div style="position:relative;width:46px;height:46px;border-radius:15px;background:repeating-linear-gradient(135deg,#F1EAE4 0 6px,#EAE1D9 6px 12px);display:flex;align-items:center;justify-content:center;font:600 15px/1 Archivo,sans-serif;color:#A14D72;flex:none">{{ d.initials }}</div>
+                    <div style="display:flex;align-items:center;gap:4px;background:#EAF1EC;border-radius:999px;padding:4px 7px">
+                      <span style="width:5px;height:5px;border-radius:50%;background:#2F6B52"></span>
+                      <span style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#2F6B52">{{ t.verified }}</span>
+                    </div>
+                  </div>
+                  <div style="font:600 14.5px/1.15 Archivo,sans-serif;color:#221E1C;margin-top:11px">{{ d.name }}</div>
+                  <div style="display:flex;align-items:center;gap:5px;margin-top:5px">
+                    <span style="font:600 12px/1 Archivo,sans-serif;color:#221E1C">&#9733; {{ d.rating }}</span>
+                    <span style="font:400 11.5px/1 Archivo,sans-serif;color:#A6968C">({{ d.reviews }})</span>
+                  </div>
+                  <div style="font:400 11.5px/1.35 Archivo,sans-serif;color:#8A817C;margin-top:8px">{{ d.areasShort }}</div>
+                  <div style="font:400 11px/1 Archivo,sans-serif;color:{{ d.statusColor }};margin-top:9px">{{ d.statusText }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <sc-if value="{{ noResults }}">
+              <div style="text-align:center;padding:38px 20px;font:400 13.5px/1.5 Archivo,sans-serif;color:#A6968C">{{ t.noResults }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProfile }}">
+        <div style="min-height:780px;background:#FAF6F3;padding-bottom:110px;position:relative">
+          <div style="background:#F1EAE4;padding:46px 22px 26px">
+            <button onClick="{{ goBrowse }}" style="background:none;border:none;padding:0 0 20px;font:500 13px/1 Archivo,sans-serif;color:#6E6660;cursor:pointer">&#8592; {{ t.back }}</button>
+            <div style="display:flex;gap:15px;align-items:flex-start">
+              <div style="width:86px;height:104px;border-radius:18px;background:repeating-linear-gradient(135deg,#E6DCD4 0 7px,#DED3CA 7px 14px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex:none">
+                <div style="font:600 24px/1 Archivo,sans-serif;color:#A14D72">{{ sel.initials }}</div>
+                <div style="font:400 8px/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;color:#9C8E85">DRIVER PHOTO</div>
+              </div>
+              <div style="flex:1;min-width:0">
+                <h2 style="margin:0;font:600 24px/1.1 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ sel.name }}</h2>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:8px">
+                  <span style="font:600 14px/1 Archivo,sans-serif;color:#221E1C">&#9733; {{ sel.rating }}</span>
+                  <span style="font:400 12.5px/1 Archivo,sans-serif;color:#8A817C">{{ sel.reviewsText }}</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;background:#EAF1EC;border-radius:999px;padding:5px 9px;margin-top:11px;width:fit-content">
+                  <span style="width:5px;height:5px;border-radius:50%;background:#2F6B52"></span>
+                  <span style="font:600 10px/1 Archivo,sans-serif;letter-spacing:.05em;text-transform:uppercase;color:#2F6B52">{{ t.licenceVerified }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:22px 22px 0">
+            <p style="margin:0;font:400 15px/1.55 Archivo,sans-serif;color:#4A443F;text-wrap:pretty">{{ sel.bio }}</p>
+
+            <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A817C;margin:26px 0 11px">{{ t.areasServed }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ sel.areas }}" as="a" hint-placeholder-count="3">
+                <span style="background:#fff;border:1px solid rgba(34,30,28,.1);border-radius:999px;padding:7px 12px;font:500 12px/1 Archivo,sans-serif;color:#4A443F">{{ a }}</span>
+              </sc-for>
+            </div>
+
+            <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A817C;margin:26px 0 11px">{{ t.theCar }}</div>
+            <div style="background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:18px;overflow:hidden">
+              <div style="display:flex;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid rgba(34,30,28,.07)">
+                <span style="font:400 13px/1 Archivo,sans-serif;color:#8A817C">{{ t.makeModel }}</span>
+                <span style="font:600 13px/1 Archivo,sans-serif;color:#221E1C;text-align:right">{{ sel.car }}</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;gap:10px;padding:14px 16px;border-bottom:1px solid rgba(34,30,28,.07)">
+                <span style="font:400 13px/1 Archivo,sans-serif;color:#8A817C">{{ t.colour }}</span>
+                <span style="font:600 13px/1 Archivo,sans-serif;color:#221E1C;text-align:right">{{ sel.colour }}</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;gap:10px;padding:14px 16px">
+                <span style="font:400 13px/1 Archivo,sans-serif;color:#8A817C">{{ t.plate }}</span>
+                <span style="font:600 13px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#221E1C;text-align:right">{{ sel.plate }}</span>
+              </div>
+            </div>
+
+            <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A817C;margin:26px 0 11px">{{ t.recentReviews }}</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ sel.reviews3 }}" as="r" hint-placeholder-count="2">
+                <div style="background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:16px;padding:14px 15px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                    <span style="font:600 12.5px/1 Archivo,sans-serif;color:#221E1C">{{ r.who }}</span>
+                    <span style="font:600 11.5px/1 Archivo,sans-serif;color:#A14D72">{{ r.stars }}</span>
+                  </div>
+                  <p style="margin:8px 0 0;font:400 13px/1.45 Archivo,sans-serif;color:#6E6660;text-wrap:pretty">{{ r.text }}</p>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="position:sticky;bottom:0;padding:14px 22px 18px;background:linear-gradient(to top,#FAF6F3 60%,rgba(250,246,243,0));margin-top:24px">
+            <button onClick="{{ goConfirm }}" style="width:100%;background:#A14D72;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#fff;cursor:pointer" style-hover="background:#8E4364">{{ t.requestBooking }}</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isConfirm }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:50px 24px 28px;background:#FAF6F3">
+          <button onClick="{{ goProfileBack }}" style="align-self:flex-start;background:none;border:none;padding:0 0 22px;font:500 13px/1 Archivo,sans-serif;color:#8A817C;cursor:pointer">&#8592; {{ t.back }}</button>
+          <h2 style="margin:0 0 20px;font:600 27px/1.1 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ t.confirmTitle }}</h2>
+          <div style="background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:20px;padding:17px;display:flex;align-items:center;gap:13px">
+            <div style="width:48px;height:48px;border-radius:15px;background:repeating-linear-gradient(135deg,#F1EAE4 0 6px,#EAE1D9 6px 12px);display:flex;align-items:center;justify-content:center;font:600 16px/1 Archivo,sans-serif;color:#A14D72;flex:none">{{ sel.initials }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font:600 15.5px/1.1 Archivo,sans-serif;color:#221E1C">{{ sel.name }}</div>
+              <div style="font:400 12.5px/1 Archivo,sans-serif;color:#8A817C;margin-top:5px">&#9733; {{ sel.rating }} · {{ sel.car }}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-top:16px">
+            <label style="display:flex;flex-direction:column;gap:7px">
+              <span style="font:600 11.5px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A817C">{{ t.pickup }}</span>
+              <input value="{{ pickup }}" onChange="{{ setPickup }}" style="width:100%;background:#fff;border:1px solid rgba(34,30,28,.12);border-radius:14px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#221E1C;outline:none" style-focus="border-color:#A14D72" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:7px">
+              <span style="font:600 11.5px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#8A817C">{{ t.dropoff }}</span>
+              <input value="{{ dropoff }}" onChange="{{ setDropoff }}" style="width:100%;background:#fff;border:1px solid rgba(34,30,28,.12);border-radius:14px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#221E1C;outline:none" style-focus="border-color:#A14D72" />
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;background:#F1EAE4;border-radius:16px;padding:15px 16px;margin-top:16px">
+            <div>
+              <div style="font:600 13.5px/1.1 Archivo,sans-serif;color:#221E1C">{{ t.shareTrip }}</div>
+              <div style="font:400 11.5px/1.3 Archivo,sans-serif;color:#6E6660;margin-top:4px">{{ t.shareTripSub }}</div>
+            </div>
+            <button onClick="{{ toggleShare }}" style="position:relative;width:48px;height:28px;border-radius:999px;border:none;cursor:pointer;flex:none;background:{{ shareBg }}">
+              <span style="position:absolute;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .18s ease;left:{{ shareKnob }}"></span>
+            </button>
+          </div>
+          <div style="flex:1;min-height:18px"></div>
+          <button onClick="{{ submitRequest }}" style="width:100%;background:#A14D72;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#fff;cursor:pointer" style-hover="background:#8E4364">{{ t.sendRequest }}</button>
+          <p style="margin:12px 0 0;text-align:center;font:400 11.5px/1.4 Archivo,sans-serif;color:#A6968C">{{ t.confirmNote }}</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isStatus }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:50px 24px 28px;background:#FAF6F3">
+          <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A14D72">{{ t.yourRequest }}</div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:20px">
+            <div style="width:88px;height:88px;border-radius:50%;background:{{ statusRingBg }};display:flex;align-items:center;justify-content:center">
+              <div style="width:16px;height:16px;border-radius:50%;background:{{ statusDot }};animation:gpulse 1.8s ease-in-out infinite"></div>
+            </div>
+            <div>
+              <h2 style="margin:0;font:600 26px/1.15 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ statusTitle }}</h2>
+              <p style="margin:12px 0 0;font:400 14.5px/1.5 Archivo,sans-serif;color:#6E6660;max-width:270px;text-wrap:pretty">{{ statusBody }}</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:11px;background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:18px;padding:13px 15px;width:100%">
+              <div style="width:40px;height:40px;border-radius:13px;background:repeating-linear-gradient(135deg,#F1EAE4 0 6px,#EAE1D9 6px 12px);display:flex;align-items:center;justify-content:center;font:600 14px/1 Archivo,sans-serif;color:#A14D72;flex:none">{{ sel.initials }}</div>
+              <div style="flex:1;min-width:0;text-align:left">
+                <div style="font:600 14px/1.1 Archivo,sans-serif;color:#221E1C">{{ sel.name }}</div>
+                <div style="font:400 12px/1 Archivo,sans-serif;color:#8A817C;margin-top:4px">{{ tripLine }}</div>
+              </div>
+            </div>
+          </div>
+          <sc-if value="{{ statusPending }}">
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="border:1px dashed rgba(34,30,28,.22);border-radius:14px;padding:11px;display:flex;gap:8px">
+                <button onClick="{{ simAccept }}" style="flex:1;background:#221E1C;border:none;border-radius:11px;padding:12px;font:600 12.5px/1 Archivo,sans-serif;color:#F2EFEA;cursor:pointer">{{ t.simAccept }}</button>
+                <button onClick="{{ simDecline }}" style="flex:1;background:transparent;border:1px solid rgba(34,30,28,.2);border-radius:11px;padding:12px;font:600 12.5px/1 Archivo,sans-serif;color:#6E6660;cursor:pointer">{{ t.simDecline }}</button>
+              </div>
+              <button onClick="{{ goBrowse }}" style="width:100%;background:transparent;border:1px solid rgba(34,30,28,.15);border-radius:18px;padding:16px;font:600 15px/1 Archivo,sans-serif;color:#6E6660;cursor:pointer">{{ t.cancelRequest }}</button>
+            </div>
+          </sc-if>
+          <sc-if value="{{ statusAccepted }}">
+            <button onClick="{{ goRideDetail }}" style="width:100%;background:#A14D72;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#fff;cursor:pointer" style-hover="background:#8E4364">{{ t.seeRideDetails }}</button>
+          </sc-if>
+          <sc-if value="{{ statusDeclined }}">
+            <button onClick="{{ goBrowse }}" style="width:100%;background:#221E1C;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#F2EFEA;cursor:pointer">{{ t.findAnother }}</button>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isRide }}">
+        <div style="min-height:780px;background:#FAF6F3;padding:0 0 26px">
+          <div style="background:#2F6B52;padding:48px 22px 22px">
+            <div style="display:flex;align-items:center;gap:7px">
+              <span style="width:6px;height:6px;border-radius:50%;background:#A8E6C4"></span>
+              <span style="font:600 10.5px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A8E6C4">{{ t.rideConfirmed }}</span>
+            </div>
+            <h2 style="margin:12px 0 0;font:600 25px/1.15 Archivo,sans-serif;letter-spacing:-.02em;color:#fff">{{ t.rideTitle }}</h2>
+            <p style="margin:9px 0 0;font:400 13.5px/1.45 Archivo,sans-serif;color:rgba(255,255,255,.8)">{{ t.rideEta }}</p>
+          </div>
+
+          <div style="padding:20px 22px 0">
+            <div style="background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:20px;padding:17px">
+              <div style="display:flex;align-items:center;gap:13px">
+                <div style="width:54px;height:54px;border-radius:17px;background:repeating-linear-gradient(135deg,#F1EAE4 0 6px,#EAE1D9 6px 12px);display:flex;align-items:center;justify-content:center;font:600 18px/1 Archivo,sans-serif;color:#A14D72;flex:none">{{ sel.initials }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font:600 16px/1.1 Archivo,sans-serif;color:#221E1C">{{ sel.name }}</div>
+                  <div style="font:400 12.5px/1 Archivo,sans-serif;color:#8A817C;margin-top:5px">&#9733; {{ sel.rating }} {{ sel.reviewsText }}</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px;margin-top:15px">
+                <a href="tel:0" style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#A14D72;border-radius:14px;padding:14px;font:600 14px/1 Archivo,sans-serif;color:#fff;text-decoration:none">{{ sel.phone }}</a>
+                <button onClick="{{ toggleShare }}" style="flex:none;background:#F1EAE4;border:none;border-radius:14px;padding:14px 16px;font:600 13px/1 Archivo,sans-serif;color:#6E6660;cursor:pointer">{{ shareLabel }}</button>
+              </div>
+            </div>
+
+            <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8A817C;margin:24px 0 11px">{{ t.beforeYouGetIn }}</div>
+            <div style="background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:20px;overflow:hidden">
+              <sc-for list="{{ matchChecks }}" as="m" hint-placeholder-count="4">
+                <div onClick="{{ m.toggle }}" style="display:flex;align-items:center;gap:12px;padding:15px 16px;border-bottom:1px solid rgba(34,30,28,.06);cursor:pointer">
+                  <span style="width:22px;height:22px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font:600 12px/1 Archivo,sans-serif;border:1.5px solid {{ m.border }};background:{{ m.bg }};color:#fff">{{ m.mark }}</span>
+                  <span style="flex:1;min-width:0">
+                    <span style="display:block;font:400 11.5px/1 Archivo,sans-serif;color:#8A817C">{{ m.label }}</span>
+                    <span style="display:block;font:600 14.5px/1.2 Archivo,sans-serif;color:#221E1C;margin-top:4px;letter-spacing:{{ m.spacing }}">{{ m.value }}</span>
+                  </span>
+                </div>
+              </sc-for>
+              <div style="padding:14px 16px;background:#FAF6F3">
+                <p style="margin:0;font:400 12px/1.45 Archivo,sans-serif;color:#6E6660;text-wrap:pretty">{{ t.matchNote }}</p>
+              </div>
+            </div>
+
+            <div style="margin-top:22px;display:flex;flex-direction:column;gap:10px">
+              <button onClick="{{ goClientRate }}" style="width:100%;background:#221E1C;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#F2EFEA;cursor:pointer" style-hover="background:#100E0D">{{ t.rideDone }}</button>
+              <button style="width:100%;background:transparent;border:1px solid rgba(181,67,47,.35);border-radius:18px;padding:15px;font:600 14px/1 Archivo,sans-serif;color:#B5432F;cursor:pointer">{{ t.emergency }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isClientRate }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:54px 24px 28px;background:#FAF6F3">
+          <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#A14D72">{{ t.rateKicker }}</div>
+          <h2 style="margin:12px 0 8px;font:600 27px/1.12 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ rateDriverTitle }}</h2>
+          <p style="margin:0 0 26px;font:400 14px/1.5 Archivo,sans-serif;color:#6E6660">{{ t.rateBody }}</p>
+          <div style="background:#fff;border:1px solid rgba(34,30,28,.08);border-radius:22px;padding:22px 20px">
+            <div style="display:flex;justify-content:center;gap:8px">
+              <sc-for list="{{ starList }}" as="s" hint-placeholder-count="5">
+                <button onClick="{{ s.set }}" style="background:none;border:none;padding:2px;cursor:pointer;font:400 32px/1 Archivo,sans-serif;color:{{ s.color }}">&#9733;</button>
+              </sc-for>
+            </div>
+            <div style="text-align:center;font:500 13px/1 Archivo,sans-serif;color:#8A817C;margin-top:14px">{{ starWord }}</div>
+            <textarea value="{{ comment }}" onChange="{{ setComment }}" placeholder="{{ t.commentPlaceholder }}" style="width:100%;min-height:104px;resize:none;margin-top:18px;background:#FAF6F3;border:1px solid rgba(34,30,28,.1);border-radius:15px;padding:14px;font:400 14px/1.45 Archivo,sans-serif;color:#221E1C;outline:none" style-focus="border-color:#A14D72"></textarea>
+          </div>
+          <div style="flex:1;min-height:18px"></div>
+          <button onClick="{{ submitRating }}" style="width:100%;background:#A14D72;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#fff;cursor:pointer" style-hover="background:#8E4364">{{ t.submitRating }}</button>
+          <button onClick="{{ goBrowse }}" style="width:100%;background:none;border:none;padding:14px 0 0;font:500 13.5px/1 Archivo,sans-serif;color:#8A817C;cursor:pointer">{{ t.skip }}</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isClientDone }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:64px 30px 44px;background:#FAF6F3">
+          <div style="width:74px;height:74px;border-radius:50%;background:#EAF1EC;display:flex;align-items:center;justify-content:center;font:400 30px/1 Archivo,sans-serif;color:#2F6B52">&#10003;</div>
+          <div>
+            <h2 style="margin:0;font:600 26px/1.15 Archivo,sans-serif;letter-spacing:-.02em;color:#221E1C">{{ t.thanksTitle }}</h2>
+            <p style="margin:12px 0 0;font:400 14.5px/1.5 Archivo,sans-serif;color:#6E6660;max-width:250px;text-wrap:pretty">{{ t.thanksBody }}</p>
+          </div>
+          <button onClick="{{ goBrowse }}" style="background:#221E1C;border:none;border-radius:16px;padding:15px 26px;font:600 14.5px/1 Archivo,sans-serif;color:#F2EFEA;cursor:pointer">{{ t.backToDirectory }}</button>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="height:100%;overflow-y:auto;background:#17161A;display:{{ darkDisplay }}">
+
+      <sc-if value="{{ isDriverSignup }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:50px 22px 28px;background:#17161A">
+          <button onClick="{{ goSplash }}" style="align-self:flex-start;background:none;border:none;padding:0 0 20px;font:500 13px/1 Archivo,sans-serif;color:#918B97;cursor:pointer">&#8592; {{ t.back }}</button>
+          <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#E8B33D">{{ t.driverBadge }}</div>
+          <h2 style="margin:12px 0 8px;font:600 27px/1.1 Archivo,sans-serif;letter-spacing:-.02em;color:#F2EFEA">{{ t.driverSignupTitle }}</h2>
+          <p style="margin:0 0 22px;font:400 14px/1.5 Archivo,sans-serif;color:#918B97;text-wrap:pretty">{{ t.driverSignupBody }}</p>
+
+          <div style="display:flex;gap:6px;margin-bottom:22px">
+            <div style="flex:1;height:3px;border-radius:2px;background:#E8B33D"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:{{ step2Bg }}"></div>
+            <div style="flex:1;height:3px;border-radius:2px;background:{{ step3Bg }}"></div>
+          </div>
+
+          <div style="font:600 10.5px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6875;margin-bottom:12px">{{ t.sectionYou }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.fName }}</span>
+              <input value="{{ dName }}" onChange="{{ setDName }}" placeholder="Amparo Ferrer" style="width:100%;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.fPhone }}</span>
+              <input value="{{ dPhone }}" onChange="{{ setDPhone }}" placeholder="+34 600 000 000" style="width:100%;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D" />
+            </label>
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.fBio }}</span>
+              <textarea value="{{ dBio }}" onChange="{{ setDBio }}" placeholder="{{ t.bioPlaceholder }}" style="width:100%;min-height:86px;resize:none;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 14.5px/1.45 Archivo,sans-serif;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D"></textarea>
+            </label>
+          </div>
+
+          <div style="font:600 10.5px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6875;margin:24px 0 12px">{{ t.sectionLicence }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.fLicence }}</span>
+              <input value="{{ dLicence }}" onChange="{{ setDLicence }}" placeholder="VLC-TX-04182" style="width:100%;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 15px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D" />
+            </label>
+            <div style="display:flex;gap:11px">
+              <button onClick="{{ uploadLicence }}" style="flex:1;background:#221F26;border:1px dashed {{ licBorder }};border-radius:15px;padding:18px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+                <span style="width:34px;height:34px;border-radius:11px;background:repeating-linear-gradient(135deg,#2C2932 0 6px,#26232C 6px 12px)"></span>
+                <span style="font:600 11.5px/1.2 Archivo,sans-serif;color:#F2EFEA;text-align:center">{{ t.licencePhoto }}</span>
+                <span style="font:400 9.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:{{ licColor }}">{{ licState }}</span>
+              </button>
+              <button onClick="{{ uploadProfile }}" style="flex:1;background:#221F26;border:1px dashed {{ picBorder }};border-radius:15px;padding:18px 12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px">
+                <span style="width:34px;height:34px;border-radius:50%;background:repeating-linear-gradient(135deg,#2C2932 0 6px,#26232C 6px 12px)"></span>
+                <span style="font:600 11.5px/1.2 Archivo,sans-serif;color:#F2EFEA;text-align:center">{{ t.profilePhoto }}</span>
+                <span style="font:400 9.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:{{ picColor }}">{{ picState }}</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="font:600 10.5px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6875;margin:24px 0 12px">{{ t.sectionAreas }}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ areaPicker }}" as="a" hint-placeholder-count="7">
+              <button onClick="{{ a.toggle }}" style="border-radius:999px;padding:9px 13px;font:500 12px/1 Archivo,sans-serif;cursor:pointer;border:1px solid {{ a.border }};background:{{ a.bg }};color:{{ a.fg }}">{{ a.label }}</button>
+            </sc-for>
+          </div>
+
+          <div style="font:600 10.5px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6875;margin:24px 0 12px">{{ t.sectionCar }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <label style="display:flex;flex-direction:column;gap:6px">
+              <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.makeModel }}</span>
+              <input value="{{ dCar }}" onChange="{{ setDCar }}" placeholder="Toyota Prius+" style="width:100%;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D" />
+            </label>
+            <div style="display:flex;gap:11px">
+              <label style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0">
+                <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.colour }}</span>
+                <input value="{{ dColour }}" onChange="{{ setDColour }}" placeholder="Blanco" style="width:100%;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 15px/1 Archivo,sans-serif;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D" />
+              </label>
+              <label style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0">
+                <span style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#918B97">{{ t.plate }}</span>
+                <input value="{{ dPlate }}" onChange="{{ setDPlate }}" placeholder="8421 KLM" style="width:100%;background:#221F26;border:1px solid rgba(242,239,234,.1);border-radius:13px;padding:14px 15px;font:400 15px/1 ui-monospace,Menlo,monospace;letter-spacing:.05em;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D" />
+              </label>
+            </div>
+          </div>
+
+          <button onClick="{{ goAwaiting }}" style="width:100%;margin-top:26px;background:#E8B33D;border:none;border-radius:17px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#17161A;cursor:pointer" style-hover="background:#D8A32E">{{ t.submitForVerification }}</button>
+          <p style="margin:12px 0 0;text-align:center;font:400 11.5px/1.4 Archivo,sans-serif;color:#6E6875">{{ t.driverSubmitNote }}</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAwaiting }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:54px 24px 28px;background:#17161A">
+          <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#E8B33D">{{ t.driverBadge }}</div>
+          <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px">
+            <div style="width:76px;height:76px;border-radius:24px;background:rgba(232,179,61,.13);display:flex;align-items:center;justify-content:center">
+              <div style="width:14px;height:14px;border-radius:50%;background:#E8B33D;animation:gpulse 1.8s ease-in-out infinite"></div>
+            </div>
+            <div>
+              <h2 style="margin:0;font:600 29px/1.12 Archivo,sans-serif;letter-spacing:-.02em;color:#F2EFEA;text-wrap:pretty">{{ t.awaitingTitle }}</h2>
+              <p style="margin:14px 0 0;font:400 15px/1.5 Archivo,sans-serif;color:#918B97;text-wrap:pretty">{{ t.awaitingBody }}</p>
+            </div>
+            <div style="background:#221F26;border-radius:18px;padding:4px 16px">
+              <sc-for list="{{ verifySteps }}" as="v" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:11px;padding:14px 0;border-bottom:1px solid rgba(242,239,234,.06)">
+                  <span style="width:18px;height:18px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font:600 10px/1 Archivo,sans-serif;background:{{ v.bg }};color:{{ v.fg }}">{{ v.mark }}</span>
+                  <span style="flex:1;font:500 13.5px/1.25 Archivo,sans-serif;color:#F2EFEA">{{ v.label }}</span>
+                  <span style="font:400 11.5px/1 Archivo,sans-serif;color:{{ v.stateColor }}">{{ v.state }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border:1px dashed rgba(242,239,234,.18);border-radius:15px;padding:12px">
+            <button onClick="{{ simApprove }}" style="width:100%;background:#E8B33D;border:none;border-radius:12px;padding:14px;font:600 13.5px/1 Archivo,sans-serif;color:#17161A;cursor:pointer">{{ t.simApprove }}</button>
+            <p style="margin:9px 0 0;text-align:center;font:400 10.5px/1.3 ui-monospace,Menlo,monospace;color:#6E6875">{{ t.prototypeShortcut }}</p>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDashboard }}">
+        <div style="min-height:780px;background:#17161A;padding-bottom:26px">
+          <div style="position:sticky;top:0;z-index:5;background:#17161A;padding:46px 20px 14px;border-bottom:1px solid rgba(242,239,234,.07)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <div>
+                <div style="font:400 12.5px/1 Archivo,sans-serif;color:#918B97">{{ t.driverGreeting }}</div>
+                <h2 style="margin:5px 0 0;font:600 21px/1.1 Archivo,sans-serif;letter-spacing:-.02em;color:#F2EFEA">{{ driverFirstName }}</h2>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px;background:rgba(232,179,61,.13);border-radius:999px;padding:6px 10px">
+                <span style="width:5px;height:5px;border-radius:50%;background:#E8B33D"></span>
+                <span style="font:600 9.5px/1 Archivo,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#E8B33D">{{ t.verified }}</span>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#221F26;border-radius:16px;padding:14px 16px;margin-top:16px">
+              <div>
+                <div style="font:600 14.5px/1.1 Archivo,sans-serif;color:#F2EFEA">{{ t.availableNow }}</div>
+                <div style="font:400 11.5px/1.3 Archivo,sans-serif;color:#918B97;margin-top:4px">{{ availSub }}</div>
+              </div>
+              <button onClick="{{ toggleAvail }}" style="position:relative;width:52px;height:30px;border-radius:999px;border:none;cursor:pointer;flex:none;background:{{ availBg }}">
+                <span style="position:absolute;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .18s ease;left:{{ availKnob }}"></span>
+              </button>
+            </div>
+            <div style="display:flex;gap:9px;margin-top:12px">
+              <div style="flex:1;background:#221F26;border-radius:14px;padding:12px 13px">
+                <div style="font:600 19px/1 Archivo,sans-serif;color:#F2EFEA">{{ statRides }}</div>
+                <div style="font:400 10.5px/1.2 Archivo,sans-serif;color:#918B97;margin-top:5px">{{ t.statRides }}</div>
+              </div>
+              <div style="flex:1;background:#221F26;border-radius:14px;padding:12px 13px">
+                <div style="font:600 19px/1 Archivo,sans-serif;color:#F2EFEA">&#9733; 4.9</div>
+                <div style="font:400 10.5px/1.2 Archivo,sans-serif;color:#918B97;margin-top:5px">{{ t.statRating }}</div>
+              </div>
+              <div style="flex:1;background:#221F26;border-radius:14px;padding:12px 13px">
+                <div style="font:600 19px/1 Archivo,sans-serif;color:#E8B33D">{{ pendingCount }}</div>
+                <div style="font:400 10.5px/1.2 Archivo,sans-serif;color:#918B97;margin-top:5px">{{ t.statPending }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:18px 20px 0">
+            <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#6E6875;margin-bottom:12px">{{ t.incomingRequests }}</div>
+            <sc-if value="{{ availOff }}">
+              <div style="background:#221F26;border:1px solid rgba(242,239,234,.07);border-radius:18px;padding:26px 20px;text-align:center">
+                <p style="margin:0;font:400 13.5px/1.5 Archivo,sans-serif;color:#918B97;text-wrap:pretty">{{ t.offlineNote }}</p>
+              </div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <sc-for list="{{ requests }}" as="r" hint-placeholder-count="3">
+                <div style="background:#221F26;border:1px solid rgba(242,239,234,.07);border-radius:20px;padding:16px;animation:grise .3s ease both">
+                  <div style="display:flex;align-items:flex-start;gap:12px">
+                    <div style="width:42px;height:42px;border-radius:14px;background:repeating-linear-gradient(135deg,#2C2932 0 6px,#26232C 6px 12px);display:flex;align-items:center;justify-content:center;font:600 14px/1 Archivo,sans-serif;color:#E8B33D;flex:none">{{ r.initials }}</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font:600 15px/1.1 Archivo,sans-serif;color:#F2EFEA">{{ r.name }}</div>
+                      <div style="display:flex;align-items:center;gap:7px;margin-top:6px">
+                        <span style="font:600 12px/1 Archivo,sans-serif;color:#E8B33D">&#9733; {{ r.rating }}</span>
+                        <span style="font:400 11.5px/1 Archivo,sans-serif;color:#6E6875">{{ r.ridesText }}</span>
+                      </div>
+                    </div>
+                    <div style="font:400 11px/1 Archivo,sans-serif;color:#6E6875;flex:none">{{ r.ago }}</div>
+                  </div>
+                  <div style="background:#1A181E;border-radius:13px;padding:12px 13px;margin-top:13px">
+                    <div style="display:flex;align-items:center;gap:9px">
+                      <span style="width:6px;height:6px;border-radius:50%;background:#E8B33D;flex:none"></span>
+                      <span style="font:400 13px/1.25 Archivo,sans-serif;color:#F2EFEA;min-width:0">{{ r.pickup }}</span>
+                    </div>
+                    <div style="width:1px;height:10px;background:rgba(242,239,234,.15);margin:3px 0 3px 2.5px"></div>
+                    <div style="display:flex;align-items:center;gap:9px">
+                      <span style="width:6px;height:6px;border-radius:2px;background:#918B97;flex:none"></span>
+                      <span style="font:400 13px/1.25 Archivo,sans-serif;color:#C8C2CE;min-width:0">{{ r.dropoff }}</span>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:9px;margin-top:13px">
+                    <button onClick="{{ r.decline }}" style="flex:none;background:transparent;border:1px solid rgba(242,239,234,.15);border-radius:13px;padding:13px 18px;font:600 13.5px/1 Archivo,sans-serif;color:#918B97;cursor:pointer" style-hover="border-color:rgba(181,67,47,.6);color:#E08873">{{ t.decline }}</button>
+                    <button onClick="{{ r.accept }}" style="flex:1;background:#E8B33D;border:none;border-radius:13px;padding:13px;font:600 14px/1 Archivo,sans-serif;color:#17161A;cursor:pointer" style-hover="background:#D8A32E">{{ t.accept }}</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{ noRequests }}">
+              <div style="text-align:center;padding:34px 16px;font:400 13.5px/1.5 Archivo,sans-serif;color:#6E6875">{{ t.noRequests }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDriverRide }}">
+        <div style="min-height:780px;background:#17161A;padding-bottom:26px">
+          <div style="background:#E8B33D;padding:48px 22px 22px">
+            <div style="font:600 10.5px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(23,22,26,.6)">{{ t.activeRide }}</div>
+            <h2 style="margin:11px 0 0;font:600 25px/1.12 Archivo,sans-serif;letter-spacing:-.02em;color:#17161A">{{ activeClientName }}</h2>
+            <div style="display:flex;align-items:center;gap:7px;margin-top:9px">
+              <span style="font:600 13px/1 Archivo,sans-serif;color:#17161A">&#9733; {{ activeClientRating }}</span>
+              <span style="font:400 12.5px/1 Archivo,sans-serif;color:rgba(23,22,26,.6)">{{ activeClientRides }}</span>
+            </div>
+          </div>
+          <div style="padding:20px 22px 0">
+            <div style="background:#221F26;border-radius:20px;padding:17px">
+              <div style="display:flex;align-items:flex-start;gap:11px">
+                <span style="width:7px;height:7px;border-radius:50%;background:#E8B33D;margin-top:6px;flex:none"></span>
+                <div style="flex:1;min-width:0">
+                  <div style="font:400 10.5px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6875">{{ t.pickup }}</div>
+                  <div style="font:500 15px/1.3 Archivo,sans-serif;color:#F2EFEA;margin-top:5px">{{ activePickup }}</div>
+                </div>
+              </div>
+              <div style="width:1px;height:18px;background:rgba(242,239,234,.15);margin:6px 0 6px 3px"></div>
+              <div style="display:flex;align-items:flex-start;gap:11px">
+                <span style="width:7px;height:7px;border-radius:2px;background:#918B97;margin-top:6px;flex:none"></span>
+                <div style="flex:1;min-width:0">
+                  <div style="font:400 10.5px/1 Archivo,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6E6875">{{ t.dropoff }}</div>
+                  <div style="font:500 15px/1.3 Archivo,sans-serif;color:#F2EFEA;margin-top:5px">{{ activeDropoff }}</div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:13px">
+              <a href="tel:0" style="flex:1;display:flex;align-items:center;justify-content:center;background:#221F26;border-radius:15px;padding:15px;font:600 14px/1 Archivo,sans-serif;color:#F2EFEA;text-decoration:none">{{ t.callClient }}</a>
+              <a href="#" style="flex:1;display:flex;align-items:center;justify-content:center;background:#221F26;border-radius:15px;padding:15px;font:600 14px/1 Archivo,sans-serif;color:#F2EFEA;text-decoration:none">{{ t.navigate }}</a>
+            </div>
+            <div style="background:rgba(232,179,61,.09);border-radius:16px;padding:15px 16px;margin-top:20px;display:flex;gap:11px">
+              <span style="width:6px;height:6px;border-radius:50%;background:#E8B33D;margin-top:6px;flex:none"></span>
+              <p style="margin:0;font:400 12.5px/1.45 Archivo,sans-serif;color:#C8C2CE;text-wrap:pretty">{{ t.driverSafetyNote }}</p>
+            </div>
+            <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
+              <button onClick="{{ goDriverRate }}" style="width:100%;background:#F2EFEA;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#17161A;cursor:pointer" style-hover="background:#fff">{{ t.markCompleted }}</button>
+              <button onClick="{{ goDashboard }}" style="width:100%;background:transparent;border:1px solid rgba(242,239,234,.15);border-radius:18px;padding:15px;font:600 14px/1 Archivo,sans-serif;color:#918B97;cursor:pointer">{{ t.backToDashboard }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDriverRate }}">
+        <div style="min-height:780px;display:flex;flex-direction:column;padding:54px 22px 28px;background:#17161A">
+          <div style="font:600 11px/1 Archivo,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#E8B33D">{{ t.rateKicker }}</div>
+          <h2 style="margin:12px 0 8px;font:600 27px/1.12 Archivo,sans-serif;letter-spacing:-.02em;color:#F2EFEA">{{ rateClientTitle }}</h2>
+          <p style="margin:0 0 26px;font:400 14px/1.5 Archivo,sans-serif;color:#918B97;text-wrap:pretty">{{ t.rateClientBody }}</p>
+          <div style="background:#221F26;border-radius:22px;padding:22px 20px">
+            <div style="display:flex;justify-content:center;gap:8px">
+              <sc-for list="{{ starList }}" as="s" hint-placeholder-count="5">
+                <button onClick="{{ s.set }}" style="background:none;border:none;padding:2px;cursor:pointer;font:400 32px/1 Archivo,sans-serif;color:{{ s.colorDark }}">&#9733;</button>
+              </sc-for>
+            </div>
+            <div style="text-align:center;font:500 13px/1 Archivo,sans-serif;color:#918B97;margin-top:14px">{{ starWord }}</div>
+            <textarea value="{{ comment }}" onChange="{{ setComment }}" placeholder="{{ t.commentPlaceholder }}" style="width:100%;min-height:104px;resize:none;margin-top:18px;background:#1A181E;border:1px solid rgba(242,239,234,.1);border-radius:15px;padding:14px;font:400 14px/1.45 Archivo,sans-serif;color:#F2EFEA;outline:none" style-focus="border-color:#E8B33D"></textarea>
+          </div>
+          <div style="flex:1;min-height:18px"></div>
+          <button onClick="{{ submitDriverRating }}" style="width:100%;background:#E8B33D;border:none;border-radius:18px;padding:18px;font:600 16px/1 Archivo,sans-serif;color:#17161A;cursor:pointer" style-hover="background:#D8A32E">{{ t.submitRating }}</button>
+          <button onClick="{{ goDashboard }}" style="width:100%;background:none;border:none;padding:14px 0 0;font:500 13.5px/1 Archivo,sans-serif;color:#6E6875;cursor:pointer">{{ t.skip }}</button>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="height:100%;overflow-y:auto;background:#F4F2EF;display:{{ adminDisplay }}">
+      <sc-if value="{{ isAdmin }}">
+        <div style="min-height:780px;background:#F4F2EF;padding-bottom:26px">
+          <div style="background:#221E1C;padding:48px 20px 20px">
+            <button onClick="{{ goSplash }}" style="background:none;border:none;padding:0 0 16px;font:500 12.5px/1 Archivo,sans-serif;color:rgba(242,239,234,.6);cursor:pointer">&#8592; {{ t.exitAdmin }}</button>
+            <div style="font:600 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:#E8B33D">GABBY ADMIN</div>
+            <h2 style="margin:11px 0 0;font:600 22px/1.15 Archivo,sans-serif;letter-spacing:-.02em;color:#F2EFEA">{{ t.adminTitle }}</h2>
+            <div style="font:400 12.5px/1 Archivo,sans-serif;color:rgba(242,239,234,.6);margin-top:7px">{{ adminCountText }}</div>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ pendingDrivers }}" as="p" hint-placeholder-count="3">
+              <div style="background:#fff;border:1px solid rgba(34,30,28,.09);border-radius:18px;padding:15px">
+                <div style="display:flex;gap:13px">
+                  <div style="width:62px;height:44px;border-radius:9px;background:repeating-linear-gradient(135deg,#EDE8E2 0 6px,#E4DED7 6px 12px);display:flex;align-items:center;justify-content:center;font:400 7.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.06em;color:#9C8E85;flex:none">LICENCE</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font:600 14.5px/1.1 Archivo,sans-serif;color:#221E1C">{{ p.name }}</div>
+                    <div style="font:400 12px/1 ui-monospace,Menlo,monospace;letter-spacing:.05em;color:#8A817C;margin-top:6px">{{ p.licence }}</div>
+                    <div style="font:400 11.5px/1.3 Archivo,sans-serif;color:#A6968C;margin-top:6px">{{ p.submitted }}</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:9px;margin-top:13px">
+                  <button onClick="{{ p.reject }}" style="flex:none;background:transparent;border:1px solid rgba(181,67,47,.3);border-radius:12px;padding:11px 16px;font:600 12.5px/1 Archivo,sans-serif;color:#B5432F;cursor:pointer">{{ t.reject }}</button>
+                  <button onClick="{{ p.approve }}" style="flex:1;background:#2F6B52;border:none;border-radius:12px;padding:11px;font:600 13px/1 Archivo,sans-serif;color:#fff;cursor:pointer">{{ t.approve }}</button>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ adminEmpty }}">
+              <div style="text-align:center;padding:40px 20px;font:400 13.5px/1.5 Archivo,sans-serif;color:#A6968C">{{ t.adminEmpty }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+  </x-import>
+
+  <div style="width:100%;max-width:820px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center">
+    <sc-for list="{{ screenIndex }}" as="s" hint-placeholder-count="14">
+      <button onClick="{{ s.go }}" style="border-radius:999px;padding:6px 11px;font:500 11px/1 Archivo,sans-serif;cursor:pointer;border:1px solid {{ s.border }};background:{{ s.bg }};color:{{ s.fg }}">{{ s.label }}</button>
+    </sc-for>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const AREAS = ["Ciutat Vella","L'Eixample","Extramurs","Campanar","La Saïdia","El Pla del Real","L'Olivereta"];
+
+const SUB = {
+  "Ciutat Vella": ["El Carme","La Seu","Sant Francesc","El Mercat"],
+  "L'Eixample": ["Russafa","El Pla del Remei","Gran Via"],
+  "Extramurs": ["El Botànic","La Petxina","Arrancapins"],
+  "Campanar": ["Campanar","les Tendetes","Sant Pau"],
+  "La Saïdia": ["Marxalenes","Trinitat","Tormos"],
+  "El Pla del Real": ["Mestalla","Exposició","Jaume Roig"],
+  "L'Olivereta": ["Nou Moles","Soternes"]
+};
+
+const DRIVERS = [
+  {id:1,name:"Amparo Ferrer",rating:4.9,reviews:127,zones:["L'Eixample","Ciutat Vella"],areas:["Russafa","El Pla del Remei","Gran Via","Sant Francesc"],car:"Toyota Prius+",colour:{es:"Blanco",en:"White"},plate:"8421 KLM",phone:"+34 622 41 08 73",online:true,
+   bio:{es:"Doce años al volante en Valencia. Conozco cada calle del centro y trabajo sobre todo turnos de noche, porque sé lo que es querer llegar a casa tranquila.",en:"Twelve years driving in Valencia. I know every street in the centre and I mostly work nights, because I know what it's like to want to get home calmly."},
+   reviews3:[{who:"Laura S.",stars:"★★★★★",text:{es:"Me esperó hasta que entré en el portal. Se agradece muchísimo.",en:"She waited until I was through my front door. Hugely appreciated."}},{who:"Marta G.",stars:"★★★★★",text:{es:"Puntual, conversación agradable y precio justo.",en:"On time, easy conversation, fair fare."}}]},
+  {id:2,name:"Núria Sanchis",rating:4.8,reviews:94,zones:["Ciutat Vella","Extramurs"],areas:["El Carme","La Seu","El Botànic","Arrancapins"],car:"Škoda Octavia",colour:{es:"Negro",en:"Black"},plate:"3157 JDR",phone:"+34 655 30 12 44",online:true,
+   bio:{es:"Conductora desde 2016. Coche amplio para equipaje y sillita infantil siempre disponible si me avisas al reservar.",en:"Licensed since 2016. Roomy car for luggage, and a child seat available if you mention it when booking."},
+   reviews3:[{who:"Irene P.",stars:"★★★★★",text:{es:"Trajo la sillita sin que tuviera que insistir. Perfecto con la peque.",en:"Brought the child seat without me having to chase. Perfect with my little one."}},{who:"Sofía R.",stars:"★★★★☆",text:{es:"Muy atenta. Algo de tráfico pero avisó por teléfono.",en:"Very attentive. Some traffic but she called ahead."}}]},
+  {id:3,name:"Pilar Beltrán",rating:5.0,reviews:61,zones:["El Pla del Real","L'Eixample"],areas:["Mestalla","Exposició","Jaume Roig","Gran Via"],car:"Hyundai Ioniq",colour:{es:"Gris",en:"Grey"},plate:"9034 MBT",phone:"+34 611 87 55 20",online:false,
+   bio:{es:"Eléctrico, silencioso y sin prisas. Hago muchos trayectos al hospital y al aeropuerto a primera hora.",en:"Electric, quiet, never rushed. I do a lot of early hospital and airport runs."},
+   reviews3:[{who:"Ana V.",stars:"★★★★★",text:{es:"Vuelo a las 6 de la mañana y estaba en la puerta a las 4:45.",en:"6am flight and she was at my door at 4:45."}}]},
+  {id:4,name:"Carmen Llopis",rating:4.7,reviews:183,zones:["La Saïdia","Campanar"],areas:["Marxalenes","Trinitat","Tormos","Campanar"],car:"Dacia Jogger",colour:{es:"Beige",en:"Beige"},plate:"2290 FTC",phone:"+34 699 14 62 31",online:true,
+   bio:{es:"La veterana del grupo: 21 años de licencia. Siete plazas, ideal para grupos que vuelven de cena.",en:"The veteran of the group: 21 years licensed. Seven seats, ideal for groups heading home after dinner."},
+   reviews3:[{who:"Grupo Clara M.",stars:"★★★★★",text:{es:"Cuatro amigas de vuelta a casa sin agobios. Repetiremos.",en:"Four friends home with zero stress. We'll book again."}}]},
+  {id:5,name:"Rosa Miralles",rating:4.9,reviews:72,zones:["Extramurs","L'Olivereta"],areas:["La Petxina","Arrancapins","Nou Moles"],car:"Nissan Leaf",colour:{es:"Azul",en:"Blue"},plate:"6715 HNV",phone:"+34 633 72 90 18",online:true,
+   bio:{es:"Trabajo turnos de tarde y noche entre semana. Si quedas en un bar y no te sientes cómoda, llámame y salgo.",en:"I work weekday evenings and nights. If you're out somewhere and don't feel comfortable, call me and I'll come."},
+   reviews3:[{who:"Elena D.",stars:"★★★★★",text:{es:"Llegó en diez minutos un viernes a las 3 de la mañana.",en:"Arrived in ten minutes at 3am on a Friday."}}]},
+  {id:6,name:"Empar Tormo",rating:4.6,reviews:48,zones:["Campanar","La Saïdia"],areas:["les Tendetes","Sant Pau","Morvedre"],car:"Citroën ë-C4",colour:{es:"Blanco",en:"White"},plate:"4408 LPZ",phone:"+34 644 05 39 77",online:false,
+   bio:{es:"Nueva en GABBY pero no al volante. Especialista en trayectos al aeropuerto y estación Joaquín Sorolla.",en:"New to GABBY but not to driving. Airport and Joaquín Sorolla station runs are my speciality."},
+   reviews3:[{who:"Teresa B.",stars:"★★★★☆",text:{es:"Buena conductora y muy correcta.",en:"Good driver, very courteous."}}]}
+];
+
+const T = {
+  es:{
+    chromeScreen:"Pantalla",chromeRestart:"Reiniciar",switchLang:"Cambiar a English",
+    splashKicker:"Valencia · Taxi con licencia",
+    splashTitle:"Conductoras con licencia. Clientas que las eligen.",
+    splashBody:"Un directorio de taxistas valencianas verificadas. Tú eliges quién conduce.",
+    splashChip1:"Licencia verificada a mano",splashChip2:"Valoraciones en los dos sentidos",
+    imClient:"Soy clienta",imClientSub:"Buscar y reservar una conductora",
+    imDriver:"Soy conductora",imDriverSub:"Darme de alta y recibir solicitudes",
+    adminEntry:"Acceso admin",back:"Atrás",
+    clientBadge:"Cuenta de clienta",clientSignupTitle:"Dos datos y listo",
+    clientSignupBody:"Solo pedimos lo mínimo. Tu número se comparte únicamente cuando una conductora acepta tu viaje.",
+    fName:"Nombre",fPhone:"Teléfono",
+    clientPrivacy:"Tu teléfono no aparece en ningún perfil público. Solo lo ve la conductora que acepta el viaje.",
+    createAccount:"Crear cuenta",
+    greeting:"Buenas noches,",browseTitle:"Elige tu conductora",
+    searchPlaceholder:"Buscar por nombre o barrio",
+    anyAvailable:"Cualquiera disponible",verifiedDrivers:"Conductoras verificadas",verified:"Verificada",
+    noResults:"Ninguna conductora cubre esa zona ahora mismo.",
+    licenceVerified:"Licencia verificada",areasServed:"Zonas que cubre",theCar:"El coche",
+    makeModel:"Marca y modelo",colour:"Color",plate:"Matrícula",recentReviews:"Valoraciones recientes",
+    requestBooking:"Solicitar viaje",
+    confirmTitle:"Confirma tu solicitud",pickup:"Recogida",dropoff:"Destino",
+    shareTrip:"Compartir viaje",shareTripSub:"Enviar los datos a un contacto de confianza",
+    sendRequest:"Enviar solicitud",confirmNote:"La conductora ve tu nombre y tu valoración antes de aceptar.",
+    yourRequest:"Tu solicitud",cancelRequest:"Cancelar solicitud",seeRideDetails:"Ver datos del viaje",findAnother:"Buscar otra conductora",
+    simAccept:"Simular: acepta",simDecline:"Simular: rechaza",
+    pendingTitle:"Esperando respuesta",pendingBody:"Le hemos enviado tu solicitud. Normalmente responden en menos de dos minutos.",
+    acceptedTitle:"¡Ha aceptado!",acceptedBody:"Ya puedes ver su teléfono y los datos del coche.",
+    declinedTitle:"No puede esta vez",declinedBody:"Está ocupada ahora mismo. Hay más conductoras disponibles en tu zona.",
+    rideConfirmed:"Viaje confirmado",rideTitle:"Va de camino",rideEta:"Llegada estimada en 6 minutos",
+    beforeYouGetIn:"Antes de subir, comprueba",
+    matchNote:"Si algo no coincide, no subas. Cancela desde la app y cuéntanoslo.",
+    rideDone:"Viaje terminado",emergency:"Emergencia · llamar al 112",
+    rateKicker:"Valoración",rateBody:"Tu valoración es lo que mantiene el directorio fiable para las demás.",
+    rateClientBody:"Las conductoras ven la valoración de cada clienta antes de aceptar un viaje.",
+    commentPlaceholder:"Comentario (opcional)",submitRating:"Enviar valoración",skip:"Ahora no",
+    thanksTitle:"Gracias",thanksBody:"Tu valoración ya forma parte del perfil de la conductora.",backToDirectory:"Volver al directorio",
+    driverBadge:"Alta de conductora",driverSignupTitle:"Verificamos a mano",
+    driverSignupBody:"Revisamos cada licencia contra el registro municipal antes de publicar tu perfil. Tarda unas 24 horas.",
+    sectionYou:"Sobre ti",sectionLicence:"Licencia",sectionAreas:"Zonas que cubres",sectionCar:"Tu coche",
+    fBio:"Biografía",bioPlaceholder:"Cuéntale a las clientas cómo trabajas: turnos, idiomas, sillita infantil…",
+    fLicence:"Nº de licencia de taxi",licencePhoto:"Foto de la licencia",profilePhoto:"Foto de perfil",
+    submitForVerification:"Enviar a verificación",
+    driverSubmitNote:"Nadie ve tus documentos salvo el equipo de verificación.",
+    awaitingTitle:"Estamos verificando tu licencia",
+    awaitingBody:"Comprobamos tu número contra el registro de taxis de Valencia. Te avisamos por SMS en cuanto esté.",
+    simApprove:"Simular: aprobada",prototypeShortcut:"ATAJO DE PROTOTIPO",
+    driverGreeting:"Hola de nuevo,",availableNow:"Disponible ahora",
+    availOn:"Recibes solicitudes en tus zonas",availOff:"No recibes solicitudes",
+    statRides:"Viajes este mes",statRating:"Tu valoración",statPending:"Pendientes",
+    incomingRequests:"Solicitudes entrantes",accept:"Aceptar",decline:"Rechazar",
+    noRequests:"No hay solicitudes ahora mismo.",
+    offlineNote:"Estás invisible para las clientas. Activa «Disponible ahora» para volver al directorio.",
+    activeRide:"Viaje en curso",callClient:"Llamar",navigate:"Navegar",
+    driverSafetyNote:"La clienta ha compartido este viaje con un contacto de confianza. Los datos de tu coche ya están en su pantalla.",
+    markCompleted:"Marcar como completado",backToDashboard:"Volver al panel",
+    exitAdmin:"Salir de admin",adminTitle:"Conductoras pendientes",
+    approve:"Aprobar",reject:"Rechazar",adminEmpty:"Nada pendiente. Cola vacía.",
+    ago:"hace",min:"min",rides:"viajes"
+  },
+  en:{
+    chromeScreen:"Screen",chromeRestart:"Restart",switchLang:"Cambiar a Español",
+    splashKicker:"Valencia · Licensed taxi",
+    splashTitle:"Licensed women driving. Women choosing them.",
+    splashBody:"A directory of verified Valencian women taxi drivers. You choose who drives.",
+    splashChip1:"Licences checked by hand",splashChip2:"Ratings both ways",
+    imClient:"I'm a client",imClientSub:"Browse and book a driver",
+    imDriver:"I'm a driver",imDriverSub:"Sign up and take requests",
+    adminEntry:"Admin access",back:"Back",
+    clientBadge:"Client account",clientSignupTitle:"Two details, that's all",
+    clientSignupBody:"We ask for the minimum. Your number is shared only once a driver accepts your ride.",
+    fName:"Name",fPhone:"Phone",
+    clientPrivacy:"Your phone never appears on a public profile. Only the driver who accepts your ride sees it.",
+    createAccount:"Create account",
+    greeting:"Good evening,",browseTitle:"Choose your driver",
+    searchPlaceholder:"Search by name or neighbourhood",
+    anyAvailable:"Any available driver",verifiedDrivers:"Verified drivers",verified:"Verified",
+    noResults:"No driver covers that area right now.",
+    licenceVerified:"Licence verified",areasServed:"Areas served",theCar:"The car",
+    makeModel:"Make & model",colour:"Colour",plate:"Registration",recentReviews:"Recent reviews",
+    requestBooking:"Request booking",
+    confirmTitle:"Confirm your request",pickup:"Pick-up",dropoff:"Drop-off",
+    shareTrip:"Share trip",shareTripSub:"Send the details to a trusted contact",
+    sendRequest:"Send request",confirmNote:"She sees your name and your rating before accepting.",
+    yourRequest:"Your request",cancelRequest:"Cancel request",seeRideDetails:"See ride details",findAnother:"Find another driver",
+    simAccept:"Simulate: accept",simDecline:"Simulate: decline",
+    pendingTitle:"Waiting for a reply",pendingBody:"Your request is with her. Drivers usually reply in under two minutes.",
+    acceptedTitle:"She accepted",acceptedBody:"You can now see her phone number and car details.",
+    declinedTitle:"Not this time",declinedBody:"She's busy right now. Other drivers are available in your area.",
+    rideConfirmed:"Ride confirmed",rideTitle:"She's on her way",rideEta:"Estimated arrival in 6 minutes",
+    beforeYouGetIn:"Before you get in, check",
+    matchNote:"If anything doesn't match, don't get in. Cancel in the app and tell us.",
+    rideDone:"Ride finished",emergency:"Emergency · call 112",
+    rateKicker:"Rating",rateBody:"Your rating is what keeps this directory worth trusting.",
+    rateClientBody:"Drivers see each client's rating before they accept a ride.",
+    commentPlaceholder:"Comment (optional)",submitRating:"Submit rating",skip:"Not now",
+    thanksTitle:"Thank you",thanksBody:"Your rating is now part of her profile.",backToDirectory:"Back to directory",
+    driverBadge:"Driver sign-up",driverSignupTitle:"We verify by hand",
+    driverSignupBody:"We check every licence against the city register before your profile goes live. It takes about 24 hours.",
+    sectionYou:"About you",sectionLicence:"Licence",sectionAreas:"Areas you serve",sectionCar:"Your car",
+    fBio:"Bio",bioPlaceholder:"Tell clients how you work: shifts, languages, child seat…",
+    fLicence:"Taxi licence number",licencePhoto:"Licence photo",profilePhoto:"Profile photo",
+    submitForVerification:"Submit for verification",
+    driverSubmitNote:"Nobody sees your documents except the verification team.",
+    awaitingTitle:"We're verifying your licence",
+    awaitingBody:"We're checking your number against the Valencia taxi register. We'll text you the moment it's done.",
+    simApprove:"Simulate: approved",prototypeShortcut:"PROTOTYPE SHORTCUT",
+    driverGreeting:"Welcome back,",availableNow:"Available now",
+    availOn:"Taking requests in your areas",availOff:"Not taking requests",
+    statRides:"Rides this month",statRating:"Your rating",statPending:"Pending",
+    incomingRequests:"Incoming requests",accept:"Accept",decline:"Decline",
+    noRequests:"No requests right now.",
+    offlineNote:"You're invisible to clients. Switch on \u201cAvailable now\u201d to rejoin the directory.",
+    activeRide:"Active ride",callClient:"Call",navigate:"Navigate",
+    driverSafetyNote:"This client shared the trip with a trusted contact. Your car details are already on her screen.",
+    markCompleted:"Mark as completed",backToDashboard:"Back to dashboard",
+    exitAdmin:"Exit admin",adminTitle:"Pending drivers",
+    approve:"Approve",reject:"Reject",adminEmpty:"Nothing pending. Queue is clear.",
+    ago:"",min:"min ago",rides:"rides"
+  }
+};
+
+const BASE_REQUESTS = [
+  {id:"r1",name:"Laura Serrano",rating:4.9,rides:23,ago:4,pickup:{es:"Carrer de Cadis 42, Russafa",en:"Carrer de Cadis 42, Russafa"},dropoff:{es:"Estació del Nord",en:"Estació del Nord"}},
+  {id:"r2",name:"Marta Gil",rating:4.7,rides:11,ago:7,pickup:{es:"Plaça del Ayuntament",en:"Plaça de l'Ajuntament"},dropoff:{es:"Hospital Clínic",en:"Hospital Clínic"}},
+  {id:"r3",name:"Irene Peris",rating:5.0,rides:41,ago:12,pickup:{es:"Mercat de Colón",en:"Mercat de Colón"},dropoff:{es:"Aeroport de Manises · T1",en:"Manises Airport · T1"}}
+];
+
+const PENDING = [
+  {id:"p1",name:"Empar Tormo",licence:"VLC-TX-07734",days:1},
+  {id:"p2",name:"Sara Benavent",licence:"VLC-TX-11208",days:2},
+  {id:"p3",name:"Vicenta Alós",licence:"VLC-TX-02951",days:4}
+];
+
+const STAR_WORDS = {
+  es:["","Mal","Regular","Bien","Muy bien","Excelente"],
+  en:["","Poor","Okay","Good","Great","Excellent"]
+};
+
+class Component extends DCLogic {
+  state = {
+    lang:"es", screen:"splash",
+    cName:"Laura Serrano", cPhone:"+34 600 41 22 09",
+    query:"", area:"all", selId:1,
+    pickup:"Carrer de Cadis 42, Russafa", dropoff:"Estació del Nord",
+    share:true, reqStatus:"pending",
+    stars:0, comment:"",
+    checks:{},
+    dName:"", dPhone:"", dBio:"", dLicence:"", dCar:"", dColour:"", dPlate:"",
+    dAreas:[], licUp:false, picUp:false,
+    avail:true, requests:BASE_REQUESTS.map(r=>r.id), activeReq:null,
+    pending:PENDING.map(p=>p.id)
+  };
+
+  go = (screen) => this.setState({screen});
+
+  renderVals(){
+    const s = this.state;
+    const L = s.lang;
+    const t = T[L];
+    const sel = DRIVERS.find(d=>d.id===s.selId) || DRIVERS[0];
+    const initials = n => n.split(" ").map(w=>w[0]).slice(0,2).join("");
+
+    const q = s.query.trim().toLowerCase();
+    const matches = d => {
+      const areaOk = s.area==="all" || d.zones.indexOf(s.area)>=0;
+      const qOk = !q || d.name.toLowerCase().indexOf(q)>=0 || d.areas.join(" ").toLowerCase().indexOf(q)>=0 || d.zones.join(" ").toLowerCase().indexOf(q)>=0;
+      return areaOk && qOk;
+    };
+    const list = DRIVERS.filter(matches);
+
+    const chipStyle = on => on
+      ? {bg:"#221E1C",border:"#221E1C",fg:"#F2EFEA"}
+      : {bg:"#FFFFFF",border:"rgba(34,30,28,.12)",fg:"#5C544F"};
+
+    const areaChips = [{key:"all",label:L==="es"?"Todas":"All areas"}].concat(AREAS.map(a=>({key:a,label:a}))).map(c=>{
+      const st = chipStyle(s.area===c.key);
+      return {label:c.label, bg:st.bg, border:st.border, fg:st.fg, pick:()=>this.setState({area:c.key})};
+    });
+
+    const visibleDrivers = list.map(d=>({
+      name:d.name, initials:initials(d.name), rating:d.rating.toFixed(1), reviews:d.reviews,
+      areasShort:d.areas.slice(0,3).join(" · "),
+      statusText:d.online?(L==="es"?"Disponible ahora":"Available now"):(L==="es"?"No disponible":"Offline"),
+      statusColor:d.online?"#2F6B52":"#A6968C",
+      open:()=>this.setState({selId:d.id, screen:"profile"})
+    }));
+
+    const selVals = {
+      name:sel.name, initials:initials(sel.name), rating:sel.rating.toFixed(1),
+      reviewsText:(L==="es"?"· "+sel.reviews+" valoraciones":"· "+sel.reviews+" reviews"),
+      bio:sel.bio[L], areas:sel.areas, car:sel.car, colour:sel.colour[L], plate:sel.plate, phone:sel.phone,
+      reviews3:sel.reviews3.map(r=>({who:r.who, stars:r.stars, text:r.text[L]}))
+    };
+
+    const checkRows = [
+      {key:"plate", label:t.plate, value:sel.plate, spacing:".08em"},
+      {key:"car", label:t.makeModel, value:sel.car, spacing:"normal"},
+      {key:"colour", label:t.colour, value:sel.colour[L], spacing:"normal"},
+      {key:"face", label:L==="es"?"La cara coincide con la foto":"Face matches the photo", value:sel.name, spacing:"normal"}
+    ];
+    const matchChecks = checkRows.map(r=>{
+      const on = !!s.checks[r.key];
+      return {label:r.label, value:r.value, spacing:r.spacing, mark:on?"✓":"",
+        bg:on?"#2F6B52":"transparent", border:on?"#2F6B52":"rgba(34,30,28,.25)",
+        toggle:()=>this.setState(p=>({checks:Object.assign({},p.checks,{[r.key]:!p.checks[r.key]})}))};
+    });
+
+    const starList = [1,2,3,4,5].map(n=>({
+      color:n<=s.stars?"#A14D72":"rgba(34,30,28,.18)",
+      colorDark:n<=s.stars?"#E8B33D":"rgba(242,239,234,.18)",
+      set:()=>this.setState({stars:n})
+    }));
+
+    const areaPicker = AREAS.map(a=>{
+      const on = s.dAreas.indexOf(a)>=0;
+      return {label:a,
+        bg:on?"rgba(232,179,61,.16)":"#221F26",
+        border:on?"#E8B33D":"rgba(242,239,234,.1)",
+        fg:on?"#E8B33D":"#C8C2CE",
+        toggle:()=>this.setState(p=>({dAreas:on?p.dAreas.filter(x=>x!==a):p.dAreas.concat([a])}))};
+    });
+
+    const reqs = BASE_REQUESTS.filter(r=>s.requests.indexOf(r.id)>=0);
+    const requests = (s.avail?reqs:[]).map(r=>({
+      name:r.name, initials:initials(r.name), rating:r.rating.toFixed(1),
+      ridesText:r.rides+" "+t.rides,
+      ago:L==="es"?("hace "+r.ago+" min"):(r.ago+" min ago"),
+      pickup:r.pickup[L], dropoff:r.dropoff[L],
+      accept:()=>this.setState({activeReq:r.id, screen:"driverRide", requests:s.requests.filter(x=>x!==r.id)}),
+      decline:()=>this.setState({requests:s.requests.filter(x=>x!==r.id)})
+    }));
+    const active = BASE_REQUESTS.find(r=>r.id===s.activeReq) || BASE_REQUESTS[0];
+
+    const pendingList = PENDING.filter(p=>s.pending.indexOf(p.id)>=0).map(p=>({
+      name:p.name, licence:p.licence,
+      submitted:L==="es"?("Enviado hace "+p.days+(p.days===1?" día":" días")):("Submitted "+p.days+(p.days===1?" day":" days")+" ago"),
+      approve:()=>this.setState({pending:s.pending.filter(x=>x!==p.id)}),
+      reject:()=>this.setState({pending:s.pending.filter(x=>x!==p.id)})
+    }));
+
+    const verifySteps = [
+      {label:L==="es"?"Datos recibidos":"Details received", state:L==="es"?"Hecho":"Done", done:true},
+      {label:L==="es"?"Licencia contra el registro":"Licence vs. city register", state:L==="es"?"En curso":"In progress", done:false},
+      {label:L==="es"?"Revisión final del equipo":"Final team review", state:L==="es"?"Pendiente":"Queued", done:false}
+    ].map(v=>({label:v.label, state:v.state,
+      mark:v.done?"✓":"", bg:v.done?"#2F6B52":"rgba(242,239,234,.08)", fg:"#fff",
+      stateColor:v.done?"#6FA98C":"#6E6875"}));
+
+    const screens = [
+      ["splash", L==="es"?"Inicio":"Splash"],
+      ["clientSignup", L==="es"?"Alta clienta":"Client signup"],
+      ["browse", L==="es"?"Directorio":"Browse"],
+      ["profile", L==="es"?"Perfil":"Profile"],
+      ["confirm", L==="es"?"Confirmar":"Confirm"],
+      ["status", L==="es"?"Estado":"Status"],
+      ["ride", L==="es"?"Viaje":"Ride"],
+      ["clientRate", L==="es"?"Valorar conductora":"Rate driver"],
+      ["clientDone", L==="es"?"Gracias":"Thanks"],
+      ["driverSignup", L==="es"?"Alta conductora":"Driver signup"],
+      ["awaiting", L==="es"?"Verificación":"Awaiting"],
+      ["dashboard", L==="es"?"Panel":"Dashboard"],
+      ["driverRide", L==="es"?"Viaje activo":"Active ride"],
+      ["driverRate", L==="es"?"Valorar clienta":"Rate client"],
+      ["admin","Admin"]
+    ];
+    const screenIndex = screens.map(function(pair){
+      const k = pair[0], label = pair[1];
+      const on = s.screen===k;
+      return {label:label, bg:on?"#221E1C":"transparent", border:on?"#221E1C":"rgba(34,30,28,.16)",
+        fg:on?"#F2EFEA":"#6E6660", go:()=>this.go(k)};
+    }, this);
+    const cur = screens.find(x=>x[0]===s.screen);
+
+    const dark = ["driverSignup","awaiting","dashboard","driverRide","driverRate"].indexOf(s.screen)>=0;
+    const admin = s.screen==="admin";
+    const darkStatusBar = dark || s.screen==="ride" || admin;
+
+    const statusMap = {
+      pending:{title:t.pendingTitle, body:t.pendingBody, ring:"#F1EAE4", dot:"#A14D72"},
+      accepted:{title:t.acceptedTitle, body:t.acceptedBody, ring:"#EAF1EC", dot:"#2F6B52"},
+      declined:{title:t.declinedTitle, body:t.declinedBody, ring:"#F5E7E4", dot:"#B5432F"}
+    };
+    const st = statusMap[s.reqStatus];
+
+    return {
+      t, sel:selVals, langLabel:L==="es"?"ES":"EN",
+      screenLabel:cur?cur[1]:"—",
+      toggleLang:()=>this.setState({lang:L==="es"?"en":"es"}),
+      goSplash:()=>this.setState({screen:"splash", stars:0, comment:"", checks:{}, reqStatus:"pending"}),
+      goClientSignup:()=>this.go("clientSignup"),
+      goDriverSignup:()=>this.go("driverSignup"),
+      goAdmin:()=>this.go("admin"),
+      goBrowse:()=>this.setState({screen:"browse", stars:0, comment:"", checks:{}, reqStatus:"pending"}),
+      goProfileBack:()=>this.go("profile"),
+      goConfirm:()=>this.go("confirm"),
+      goRideDetail:()=>this.go("ride"),
+      goClientRate:()=>this.setState({screen:"clientRate", stars:0, comment:""}),
+      goAwaiting:()=>this.go("awaiting"),
+      goDashboard:()=>this.setState({screen:"dashboard", stars:0, comment:""}),
+      goDriverRate:()=>this.setState({screen:"driverRate", stars:0, comment:""}),
+      simApprove:()=>this.go("dashboard"),
+      simAccept:()=>this.setState({reqStatus:"accepted"}),
+      simDecline:()=>this.setState({reqStatus:"declined"}),
+      submitRequest:()=>this.setState({screen:"status", reqStatus:"pending"}),
+      submitRating:()=>this.go("clientDone"),
+      submitDriverRating:()=>this.go("dashboard"),
+      goAnyAvailable:()=>{
+        const first = DRIVERS.filter(d=>d.online)[0] || DRIVERS[0];
+        this.setState({selId:first.id, screen:"confirm"});
+      },
+
+      isSplash:s.screen==="splash", isClientSignup:s.screen==="clientSignup",
+      isBrowse:s.screen==="browse", isProfile:s.screen==="profile",
+      isConfirm:s.screen==="confirm", isStatus:s.screen==="status",
+      isRide:s.screen==="ride", isClientRate:s.screen==="clientRate",
+      isClientDone:s.screen==="clientDone",
+      isDriverSignup:s.screen==="driverSignup", isAwaiting:s.screen==="awaiting",
+      isDashboard:s.screen==="dashboard", isDriverRide:s.screen==="driverRide",
+      isDriverRate:s.screen==="driverRate", isAdmin:admin,
+      isDarkFrame:darkStatusBar,
+      screenIndex:screenIndex,
+      lightDisplay:(dark||admin)?"none":"block",
+      darkDisplay:dark?"block":"none",
+      adminDisplay:admin?"block":"none",
+
+      cName:s.cName, setCName:e=>this.setState({cName:e.target.value}),
+      cPhone:s.cPhone, setCPhone:e=>this.setState({cPhone:e.target.value}),
+      cInitials:initials(s.cName||"—"),
+      query:s.query, setQuery:e=>this.setState({query:e.target.value}),
+      areaChips, visibleDrivers, noResults:list.length===0,
+      resultCountText:list.length+(L==="es"?" resultados":" results"),
+      availableCountText:DRIVERS.filter(d=>d.online).length+(L==="es"?" conduciendo ahora mismo":" driving right now"),
+
+      pickup:s.pickup, setPickup:e=>this.setState({pickup:e.target.value}),
+      dropoff:s.dropoff, setDropoff:e=>this.setState({dropoff:e.target.value}),
+      toggleShare:()=>this.setState({share:!s.share}),
+      shareBg:s.share?"#2F6B52":"rgba(34,30,28,.18)",
+      shareKnob:s.share?"23px":"3px",
+      shareLabel:s.share?(L==="es"?"Compartido ✓":"Shared ✓"):(L==="es"?"Compartir":"Share"),
+
+      statusTitle:st.title, statusBody:st.body, statusRingBg:st.ring, statusDot:st.dot,
+      statusPending:s.reqStatus==="pending", statusAccepted:s.reqStatus==="accepted", statusDeclined:s.reqStatus==="declined",
+      tripLine:s.pickup+" → "+s.dropoff,
+
+      matchChecks, starList, starWord:STAR_WORDS[L][s.stars]||"",
+      comment:s.comment, setComment:e=>this.setState({comment:e.target.value}),
+      rateDriverTitle:(L==="es"?"¿Cómo fue con ":"How was your ride with ")+sel.name.split(" ")[0]+"?",
+      rateClientTitle:(L==="es"?"¿Cómo fue con ":"How was your ride with ")+active.name.split(" ")[0]+"?",
+
+      dName:s.dName, setDName:e=>this.setState({dName:e.target.value}),
+      dPhone:s.dPhone, setDPhone:e=>this.setState({dPhone:e.target.value}),
+      dBio:s.dBio, setDBio:e=>this.setState({dBio:e.target.value}),
+      dLicence:s.dLicence, setDLicence:e=>this.setState({dLicence:e.target.value}),
+      dCar:s.dCar, setDCar:e=>this.setState({dCar:e.target.value}),
+      dColour:s.dColour, setDColour:e=>this.setState({dColour:e.target.value}),
+      dPlate:s.dPlate, setDPlate:e=>this.setState({dPlate:e.target.value}),
+      areaPicker,
+      uploadLicence:()=>this.setState({licUp:!s.licUp}),
+      uploadProfile:()=>this.setState({picUp:!s.picUp}),
+      licState:s.licUp?(L==="es"?"SUBIDA ✓":"UPLOADED ✓"):(L==="es"?"TOCA PARA SUBIR":"TAP TO UPLOAD"),
+      picState:s.picUp?(L==="es"?"SUBIDA ✓":"UPLOADED ✓"):(L==="es"?"TOCA PARA SUBIR":"TAP TO UPLOAD"),
+      licColor:s.licUp?"#7FBF9F":"#6E6875",
+      picColor:s.picUp?"#7FBF9F":"#6E6875",
+      licBorder:s.licUp?"rgba(127,191,159,.5)":"rgba(242,239,234,.18)",
+      picBorder:s.picUp?"rgba(127,191,159,.5)":"rgba(242,239,234,.18)",
+      step2Bg:(s.dLicence||s.licUp)?"#E8B33D":"rgba(242,239,234,.12)",
+      step3Bg:(s.dCar||s.dPlate)?"#E8B33D":"rgba(242,239,234,.12)",
+
+      driverFirstName:"Amparo",
+      toggleAvail:()=>this.setState({avail:!s.avail}),
+      availBg:s.avail?"#E8B33D":"rgba(242,239,234,.15)",
+      availKnob:s.avail?"25px":"3px",
+      availSub:s.avail?t.availOn:t.availOff,
+      availOff:!s.avail,
+      statRides:34, pendingCount:s.avail?reqs.length:0,
+      requests, noRequests:s.avail&&reqs.length===0,
+      activeClientName:active.name, activeClientRating:active.rating.toFixed(1),
+      activeClientRides:"· "+active.rides+" "+t.rides,
+      activePickup:active.pickup[L], activeDropoff:active.dropoff[L],
+
+      pendingDrivers:pendingList, adminEmpty:pendingList.length===0,
+      adminCountText:pendingList.length+(L==="es"?" en la cola":" in the queue")
+    };
+  }
+}
+
+</script>
+</body>
+</html>
