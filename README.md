@@ -1,25 +1,43 @@
-# CODING AGENTS: READ THIS FIRST
+# GABBY — Female taxi driver directory (Valencia)
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+Real Expo (React Native + TypeScript) app + Supabase backend, built from the
+Claude Design handoff in `chats/` and `project/GABBY.dc.html`.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+## Structure
 
-## What you should do — IMPORTANT
+- `app/` — the Expo app. See `app/README.md` (below) for how to run it.
+- `supabase/` — database schema + setup instructions (`supabase/README.md`).
+- `project/`, `chats/` — the original Claude Design handoff bundle (prototype
+  HTML + the design conversation), kept for reference.
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+## Get it running
 
-**Read `project/GABBY.dc.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+1. Set up Supabase: follow `supabase/README.md` (create project, run
+   `supabase/schema.sql`, get your project URL + anon key).
+2. `cd app && cp .env.example .env` and fill in the two Supabase values.
+3. `npm install` (already run once, but run again if you pull fresh).
+4. `npx expo start` — scan the QR code with **Expo Go** on your phone to run
+   it for real, or press `w` for a quick web preview.
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+## What's built
 
-## About the design files
+All 15 screens from the design: splash, client sign-up/browse/profile/confirm/
+status/ride/rate/thanks, driver sign-up/onboarding/awaiting/dashboard/ride/rate,
+and admin review — wired to real Supabase auth, Postgres tables, Storage
+(licence + profile photos), and Realtime (a client sees the moment a driver
+accepts/declines; a driver sees new requests live).
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+## Known gaps (by design, for this MVP)
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
-
-## Bundle contents
-
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `GABBY: Female taxi driver directory` project files (HTML prototypes, assets, components)
+- **No SMS/OTP.** Login is email + password; phone number is stored as
+  contact info only. Real phone verification needs a paid SMS provider.
+- **Driver verification is manual.** The admin screen shows the licence
+  photo + number for a human to approve/reject — there's no automated
+  registry check.
+- **"Any available driver" doesn't broadcast.** It picks one online,
+  verified, area-matching driver at random and books them directly, rather
+  than offering the ride to several drivers at once.
+- **Not submitted to app stores.** Runs great in Expo Go for development;
+  shipping to the App Store / Play Store needs paid developer accounts
+  (~£79-99/yr Apple, ~£25 one-off Google) — a separate step when you're
+  ready for that.
