@@ -14,6 +14,7 @@ export type ClientStackParamList = {
   ClientRate: { requestId: string; driverId: string };
   ClientDone: undefined;
   NominationForm: undefined;
+  MyProfile: undefined;
 };
 
 export type DriverStackParamList = {
@@ -23,6 +24,7 @@ export type DriverStackParamList = {
   DriverRide: { requestId: string };
   DriverRate: { requestId: string; clientId: string };
   NominationForm: undefined;
+  MyProfile: undefined;
 };
 
 export type AdminStackParamList = {

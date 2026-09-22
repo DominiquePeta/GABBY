@@ -329,16 +329,25 @@ export function TopBar({
   lang,
   onToggleLang,
   onSignOut,
+  profileName,
+  onProfile,
 }: {
   variant?: Variant;
   lang: string;
   onToggleLang: () => void;
   onSignOut?: () => void;
+  profileName?: string;
+  onProfile?: () => void;
 }) {
   const light = variant === 'light';
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 20, paddingTop: 8 }}>
       <View style={{ flex: 1 }} />
+      {onProfile ? (
+        <Pressable onPress={onProfile} hitSlop={6}>
+          <Initials name={profileName ?? ''} size={30} variant={variant} />
+        </Pressable>
+      ) : null}
       <Pressable
         onPress={onToggleLang}
         style={{

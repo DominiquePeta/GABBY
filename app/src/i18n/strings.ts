@@ -169,6 +169,10 @@ export const strings: Record<Lang, Record<string, string>> = {
     markDeclined: 'Descartar',
     statusPendingLabel: 'Pendiente',
     statusInvitedLabel: 'Contactada',
+    myProfile: 'Mi perfil',
+    verificationStatus: 'Estado de verificación',
+    statusRejectedLabel: 'Rechazada',
+    notSubmittedLabel: 'Sin enviar',
   },
   en: {
     switchLang: 'Cambiar a Español',
@@ -313,5 +317,9 @@ export const strings: Record<Lang, Record<string, string>> = {
     markDeclined: 'Dismiss',
     statusPendingLabel: 'Pending',
     statusInvitedLabel: 'Contacted',
+    myProfile: 'My profile',
+    verificationStatus: 'Verification status',
+    statusRejectedLabel: 'Rejected',
+    notSubmittedLabel: 'Not submitted',
   },
 };

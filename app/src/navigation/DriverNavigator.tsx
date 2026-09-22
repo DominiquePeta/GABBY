@@ -4,6 +4,7 @@ import { DriverStackParamList } from './types';
 import DashboardScreen from '../screens/driver/DashboardScreen';
 import DriverRideScreen from '../screens/driver/DriverRideScreen';
 import DriverRateScreen from '../screens/driver/DriverRateScreen';
+import MyProfileScreen from '../screens/driver/MyProfileScreen';
 import NominationFormScreen from '../screens/shared/NominationFormScreen';
 
 const Stack = createNativeStackNavigator<DriverStackParamList>();
@@ -15,6 +16,7 @@ export default function DriverNavigator() {
       <Stack.Screen name="DriverRide" component={DriverRideScreen} />
       <Stack.Screen name="DriverRate" component={DriverRateScreen} />
       <Stack.Screen name="NominationForm" component={NominationFormScreen} />
+      <Stack.Screen name="MyProfile" component={MyProfileScreen} />
     </Stack.Navigator>
   );
 }

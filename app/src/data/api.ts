@@ -300,6 +300,23 @@ export async function submitRating(fields: {
   if (error) throw error;
 }
 
+export async function getMyRatingSummary(userId: string): Promise<{ avg: number; count: number }> {
+  const { data, error } = await supabase.from('ratings').select('stars').eq('ratee_id', userId);
+  if (error || !data || data.length === 0) return { avg: 0, count: 0 };
+  const avg = data.reduce((sum, r) => sum + r.stars, 0) / data.length;
+  return { avg, count: data.length };
+}
+
+export async function countCompletedRides(userId: string, role: 'client' | 'driver'): Promise<number> {
+  const { count, error } = await supabase
+    .from('ride_requests')
+    .select('id', { count: 'exact', head: true })
+    .eq(role === 'client' ? 'client_id' : 'driver_id', userId)
+    .eq('status', 'completed');
+  if (error) return 0;
+  return count ?? 0;
+}
+
 // ── Admin ────────────────────────────────────────────────────────
 
 export async function listPendingDrivers() {

@@ -73,7 +73,14 @@ export default function DashboardScreen({ navigation }: Props) {
 
   return (
     <Screen variant="dark">
-      <TopBar variant="dark" lang={lang} onToggleLang={toggleLang} onSignOut={() => signOut()} />
+      <TopBar
+        variant="dark"
+        lang={lang}
+        onToggleLang={toggleLang}
+        onSignOut={() => signOut()}
+        profileName={profile.name}
+        onProfile={() => navigation.navigate('MyProfile')}
+      />
       <View style={{ paddingHorizontal: 20, paddingTop: 4 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <View>

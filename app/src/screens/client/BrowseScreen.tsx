@@ -48,7 +48,14 @@ export default function BrowseScreen({ navigation }: Props) {
 
   return (
     <Screen variant="light">
-      <TopBar variant="light" lang={lang} onToggleLang={toggleLang} onSignOut={() => signOut()} />
+      <TopBar
+        variant="light"
+        lang={lang}
+        onToggleLang={toggleLang}
+        onSignOut={() => signOut()}
+        profileName={profile?.name}
+        onProfile={() => navigation.navigate('MyProfile')}
+      />
       <View style={{ paddingHorizontal: 20 }}>
         <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 }}>
           <View>

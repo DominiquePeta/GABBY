@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ClientStackParamList } from './types';
 import BrowseScreen from '../screens/client/BrowseScreen';
 import DriverProfileScreen from '../screens/client/DriverProfileScreen';
+import MyProfileScreen from '../screens/client/MyProfileScreen';
 import ConfirmScreen from '../screens/client/ConfirmScreen';
 import StatusScreen from '../screens/client/StatusScreen';
 import RideScreen from '../screens/client/RideScreen';
@@ -23,6 +24,7 @@ export default function ClientNavigator() {
       <Stack.Screen name="ClientRate" component={ClientRateScreen} />
       <Stack.Screen name="ClientDone" component={ClientDoneScreen} />
       <Stack.Screen name="NominationForm" component={NominationFormScreen} />
+      <Stack.Screen name="MyProfile" component={MyProfileScreen} />
     </Stack.Navigator>
   );
 }
