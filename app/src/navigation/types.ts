@@ -3,6 +3,7 @@ export type AuthStackParamList = {
   Login: { role: 'client' | 'driver' | 'admin' };
   ClientSignup: undefined;
   DriverSignup: undefined;
+  VerifyEmail: { email: string; role: 'client' | 'driver' };
 };
 
 export type ClientStackParamList = {

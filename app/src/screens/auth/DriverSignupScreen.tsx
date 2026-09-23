@@ -5,9 +5,11 @@ import { AuthStackParamList } from '../../navigation/types';
 import { Screen, TopBar, Heading, Body, TextField, Button, Kicker } from '../../components/ui';
 import { useI18n } from '../../i18n/I18nContext';
 import { signUp } from '../../data/api';
-import { color } from '../../theme/theme';
+import { color, font } from '../../theme/theme';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'DriverSignup'>;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function DriverSignupScreen({ navigation }: Props) {
   const { t, lang, toggleLang } = useI18n();
@@ -15,17 +17,28 @@ export default function DriverSignupScreen({ navigation }: Props) {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const emailInvalid = email.length > 0 && !EMAIL_RE.test(email.trim());
+  const passwordMismatch = confirmPassword.length > 0 && password !== confirmPassword;
+  const canSubmit =
+    name.trim().length > 0 &&
+    phone.trim().length > 0 &&
+    EMAIL_RE.test(email.trim()) &&
+    password.length >= 6 &&
+    password === confirmPassword;
+
   async function onSubmit() {
-    if (!name.trim() || !phone.trim() || !email.trim() || password.length < 6) {
+    if (!canSubmit) {
       Alert.alert(t.error, t.error);
       return;
     }
     setLoading(true);
     try {
-      await signUp(email.trim(), password, 'driver', name.trim(), phone.trim());
-      // RootNavigator picks this up and routes into the driver onboarding screen.
+      const trimmedEmail = email.trim();
+      await signUp(trimmedEmail, password, 'driver', name.trim(), phone.trim());
+      navigation.navigate('VerifyEmail', { email: trimmedEmail, role: 'driver' });
     } catch (e: any) {
       Alert.alert(t.error, e.message ?? String(e));
     } finally {
@@ -65,10 +78,32 @@ export default function DriverSignupScreen({ navigation }: Props) {
           autoCapitalize="none"
           keyboardType="email-address"
         />
+        {emailInvalid ? <FieldError>{t.invalidEmail}</FieldError> : null}
         <TextField variant="dark" label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
+        <TextField
+          variant="dark"
+          label={t.confirmPassword}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
+        {passwordMismatch ? <FieldError>{t.passwordMismatch}</FieldError> : null}
 
-        <Button title={t.createAccount} onPress={onSubmit} loading={loading} tone="amber" style={{ marginTop: 8 }} />
+        <Button
+          title={t.createAccount}
+          onPress={onSubmit}
+          loading={loading}
+          disabled={!canSubmit}
+          tone="amber"
+          style={{ marginTop: 8 }}
+        />
       </View>
     </Screen>
+  );
+}
+
+function FieldError({ children }: { children: React.ReactNode }) {
+  return (
+    <Text style={{ fontFamily: font.medium, fontSize: 12, color: color.danger, marginTop: -8, marginBottom: 14 }}>{children}</Text>
   );
 }

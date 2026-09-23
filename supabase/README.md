@@ -9,7 +9,12 @@
    ```
 4. In **SQL Editor**, paste and run `schema.sql` from this folder, then `nominations.sql` (adds the driver nomination feature — safe to run any time after `schema.sql`, including on a project that's already live).
 5. In **Authentication → Providers**, email/password is enabled by default — that's all the MVP needs. (Phone/SMS OTP needs a paid provider like Twilio wired into Supabase Auth; that's a later upgrade, not required to run this.)
-6. Sign up once in the app as yourself, then in **Authentication → Users** copy your user id and run:
+6. **Turn on email confirmation and wire up the 6-digit code**, required for the app's sign-up flow:
+   - **Authentication → Sign In / Providers → Email** — turn on **"Confirm email"**. Without this, `signUp()` returns an active session immediately and the app's verification screen never has anything to check.
+   - **Authentication → Email Templates → Confirm signup** — paste in `email-templates/confirm-signup.html` from this folder (or add `{{ .Token }}` to your own template — that's the 6-digit code; it must be present or no code is ever emailed, even though the app's "verify" screen will still be shown).
+   - This template is bilingual (Spanish then English, same email) since Supabase's built-in templates are one static template per project — there's no per-user language switching without a custom Auth Hook that calls a custom email provider (e.g. Resend) instead of Supabase's own mailer. That's a bigger, separate piece of work; ask if you want it built.
+   - Supabase's own resend rate limit applies (a few requests per email per hour on the free tier) — the app's "Resend code" button will surface that as an error if hit.
+7. Sign up once in the app as yourself, then in **Authentication → Users** copy your user id and run:
    ```sql
    update public.profiles set role = 'admin' where id = '<your-user-id>';
    ```

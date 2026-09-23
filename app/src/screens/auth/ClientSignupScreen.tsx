@@ -9,22 +9,36 @@ import { color, radius, font } from '../../theme/theme';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'ClientSignup'>;
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function ClientSignupScreen({ navigation }: Props) {
   const { t, lang, toggleLang } = useI18n();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const emailInvalid = email.length > 0 && !EMAIL_RE.test(email.trim());
+  const passwordMismatch = confirmPassword.length > 0 && password !== confirmPassword;
+  const canSubmit =
+    name.trim().length > 0 &&
+    phone.trim().length > 0 &&
+    EMAIL_RE.test(email.trim()) &&
+    password.length >= 6 &&
+    password === confirmPassword;
+
   async function onSubmit() {
-    if (!name.trim() || !phone.trim() || !email.trim() || password.length < 6) {
+    if (!canSubmit) {
       Alert.alert(t.error, t.error);
       return;
     }
     setLoading(true);
     try {
-      await signUp(email.trim(), password, 'client', name.trim(), phone.trim());
+      const trimmedEmail = email.trim();
+      await signUp(trimmedEmail, password, 'client', name.trim(), phone.trim());
+      navigation.navigate('VerifyEmail', { email: trimmedEmail, role: 'client' });
     } catch (e: any) {
       Alert.alert(t.error, e.message ?? String(e));
     } finally {
@@ -46,7 +60,10 @@ export default function ClientSignupScreen({ navigation }: Props) {
         <TextField label={t.fName} value={name} onChangeText={setName} placeholder="Laura Serrano" />
         <TextField label={t.fPhone} value={phone} onChangeText={setPhone} placeholder="+34 600 000 000" keyboardType="phone-pad" />
         <TextField label={t.email} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
+        {emailInvalid ? <FieldError>{t.invalidEmail}</FieldError> : null}
         <TextField label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
+        <TextField label={t.confirmPassword} value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry />
+        {passwordMismatch ? <FieldError>{t.passwordMismatch}</FieldError> : null}
 
         <View
           style={{
@@ -64,8 +81,14 @@ export default function ClientSignupScreen({ navigation }: Props) {
           </Text>
         </View>
 
-        <Button title={t.createAccount} onPress={onSubmit} loading={loading} />
+        <Button title={t.createAccount} onPress={onSubmit} loading={loading} disabled={!canSubmit} />
       </View>
     </Screen>
+  );
+}
+
+function FieldError({ children }: { children: React.ReactNode }) {
+  return (
+    <Text style={{ fontFamily: font.medium, fontSize: 12, color: color.danger, marginTop: -8, marginBottom: 14 }}>{children}</Text>
   );
 }

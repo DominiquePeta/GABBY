@@ -15,20 +15,48 @@ import {
 
 // ── Auth + profile ──────────────────────────────────────────────
 
+// Account creation is a two-step process: signUp() only starts it — the
+// account has no session and no profiles row until verifySignupOtp()
+// confirms the 6-digit code Supabase emails to the address given here.
+// name/phone/role travel as user_metadata so verifySignupOtp() can create
+// the profile once the address is confirmed real.
 export async function signUp(email: string, password: string, role: Role, name: string, phone: string) {
-  const { data, error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { role, name, phone } },
+  });
   if (error) throw error;
-  const userId = data.user?.id;
-  if (!userId) throw new Error('Sign-up succeeded but no user id was returned.');
+}
+
+export async function resendSignupOtp(email: string) {
+  const { error } = await supabase.auth.resend({ type: 'signup', email });
+  if (error) throw error;
+}
+
+export async function verifySignupOtp(email: string, token: string) {
+  const { data, error } = await supabase.auth.verifyOtp({ email, token, type: 'signup' });
+  if (error) throw error;
+  const user = data.user;
+  if (!user) throw new Error('Verification succeeded but no user was returned.');
+
+  // Idempotent: a retry after a dropped connection shouldn't fail on a
+  // duplicate-key error if the profile row was already created.
+  const { data: existing } = await supabase.from('profiles').select('id').eq('id', user.id).maybeSingle();
+  if (existing) return;
+
+  const meta = user.user_metadata as { role?: Role; name?: string; phone?: string };
+  if (!meta.role || !meta.name || !meta.phone) {
+    throw new Error('Missing sign-up details for this account — please contact support.');
+  }
   const { error: profileError } = await supabase
     .from('profiles')
-    .insert({ id: userId, role, name, phone });
+    .insert({ id: user.id, role: meta.role, name: meta.name, phone: meta.phone });
   if (profileError) throw profileError;
-  if (role === 'driver') {
-    const { error: dpError } = await supabase.from('driver_profiles').insert({ profile_id: userId });
+  if (meta.role === 'driver') {
+    const { error: dpError } = await supabase.from('driver_profiles').insert({ profile_id: user.id });
     if (dpError) throw dpError;
   }
-  return userId;
 }
 
 export async function signIn(email: string, password: string) {

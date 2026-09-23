@@ -27,10 +27,27 @@ and admin review — wired to real Supabase auth, Postgres tables, Storage
 (licence + profile photos), and Realtime (a client sees the moment a driver
 accepts/declines; a driver sees new requests live).
 
+Sign-up is a 3-step flow: registration form (with confirm-password and email
+format checks) → a 6-digit code emailed via Supabase Auth's built-in email
+OTP (not a custom system) → account only becomes active once that code is
+confirmed, then the existing client/driver flow takes over. See
+`supabase/README.md` for the one-time dashboard setup this needs (email
+confirmation + the code template).
+
+The app is bilingual (English/Spanish): every screen, form label, and error
+message has both, the toggle is reachable before login and from each role's
+profile screen, and the choice is saved on-device and re-used next launch.
+First launch defaults to the device's language when it's English, Spanish
+otherwise (Valencia is the primary market). Confirmation emails are a single
+bilingual template (Supabase's built-in mailer is one static template per
+project, not per-user) — a fully dynamic version needs a custom Auth Hook
+with a provider like Resend, not built here.
+
 ## Known gaps (by design, for this MVP)
 
-- **No SMS/OTP.** Login is email + password; phone number is stored as
-  contact info only. Real phone verification needs a paid SMS provider.
+- **No SMS/OTP.** Login is email + password; email address is verified via
+  a 6-digit code (Supabase Auth). Phone number is stored as contact info
+  only — real phone verification needs a paid SMS provider.
 - **Driver verification is manual.** The admin screen shows the licence
   photo + number for a human to approve/reject — there's no automated
   registry check.
