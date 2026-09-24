@@ -16,16 +16,19 @@ export default function ClientSignupScreen({ navigation }: Props) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const emailInvalid = email.length > 0 && !EMAIL_RE.test(email.trim());
+  const emailMismatch = confirmEmail.length > 0 && email.trim() !== confirmEmail.trim();
   const passwordMismatch = confirmPassword.length > 0 && password !== confirmPassword;
   const canSubmit =
     name.trim().length > 0 &&
     phone.trim().length > 0 &&
     EMAIL_RE.test(email.trim()) &&
+    email.trim() === confirmEmail.trim() &&
     password.length >= 6 &&
     password === confirmPassword;
 
@@ -61,6 +64,14 @@ export default function ClientSignupScreen({ navigation }: Props) {
         <TextField label={t.fPhone} value={phone} onChangeText={setPhone} placeholder="+34 600 000 000" keyboardType="phone-pad" />
         <TextField label={t.email} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
         {emailInvalid ? <FieldError>{t.invalidEmail}</FieldError> : null}
+        <TextField
+          label={t.confirmEmail}
+          value={confirmEmail}
+          onChangeText={setConfirmEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
+        {emailMismatch ? <FieldError>{t.emailMismatch}</FieldError> : null}
         <TextField label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
         <TextField label={t.confirmPassword} value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry />
         {passwordMismatch ? <FieldError>{t.passwordMismatch}</FieldError> : null}

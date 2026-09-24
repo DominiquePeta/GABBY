@@ -16,16 +16,19 @@ export default function DriverSignupScreen({ navigation }: Props) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const emailInvalid = email.length > 0 && !EMAIL_RE.test(email.trim());
+  const emailMismatch = confirmEmail.length > 0 && email.trim() !== confirmEmail.trim();
   const passwordMismatch = confirmPassword.length > 0 && password !== confirmPassword;
   const canSubmit =
     name.trim().length > 0 &&
     phone.trim().length > 0 &&
     EMAIL_RE.test(email.trim()) &&
+    email.trim() === confirmEmail.trim() &&
     password.length >= 6 &&
     password === confirmPassword;
 
@@ -79,6 +82,15 @@ export default function DriverSignupScreen({ navigation }: Props) {
           keyboardType="email-address"
         />
         {emailInvalid ? <FieldError>{t.invalidEmail}</FieldError> : null}
+        <TextField
+          variant="dark"
+          label={t.confirmEmail}
+          value={confirmEmail}
+          onChangeText={setConfirmEmail}
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
+        {emailMismatch ? <FieldError>{t.emailMismatch}</FieldError> : null}
         <TextField variant="dark" label={t.password} value={password} onChangeText={setPassword} secureTextEntry />
         <TextField
           variant="dark"
